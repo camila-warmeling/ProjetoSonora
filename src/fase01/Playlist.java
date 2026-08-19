@@ -25,30 +25,47 @@ public class Playlist {
     }
 
     public boolean adicionar(Musica musica){
-        if(musica != null && quantMusicas < 100){
+        if(musica != null && this.quantMusicas < 100){
             playlist[this.quantMusicas] = musica;
-            quantMusicas++;
+            this.quantMusicas++;
             return true;
         }
         return false;
     }
 
     public Musica getNaPosicao(int indice){
-        if(indice < quantMusicas){ //a quantidade de músicas sempre vai ser indice+1. Pois o índice começa no 0 ao invés do 1.
+        if(indice < this.quantMusicas){ //a quantidade de músicas sempre vai ser indice+1. Pois o índice começa no 0 ao invés do 1.
             return this.playlist[indice];
         }
         return null;
     }
 
     public boolean removerNaPosicao(int indice){
-        //TO DO
+        if(indice < 0 || indice >= this.quantMusicas){ 
+            return false; 
+        }
+
+        for(int i=indice; i<this.quantMusicas - 1; i++){
+            this.playlist[i] = this.playlist[i + 1]; //a musica vai ser removida ao ser sobrescrita pela do indice seguinte.
+        }
+
+        this.playlist[this.quantMusicas - 1] = null; //apaga a ultima musica da playlist pois se tornou repetida.
+        this.quantMusicas --;
+
+        return true;
     }
 
     public int getDuracaoTotalSegundos(){
-        //TO DO
+        int totalSegundos = 0;
+        for(int i=0; i<this.quantMusicas; i++){
+            totalSegundos += this.playlist[i].getDuracaoSegundos();
+        }
+        return totalSegundos;
     }
 
     public void reproduzirTudo(){
-        //TO DO
+        for(int i=0; i<this.quantMusicas; i++){
+            this.playlist[i].reproduzir();
+        }
     }
 }
