@@ -34,7 +34,7 @@ public class Playlist {
     }
 
     public Musica getNaPosicao(int indice){
-        if(indice < this.quantMusicas){ //a quantidade de músicas sempre vai ser indice+1. Pois o índice começa no 0 ao invés do 1.
+        if(indice >= 0 && indice < this.quantMusicas){ //a quantidade de músicas sempre vai ser indice+1. Pois o índice começa no 0 ao invés do 1.
             return this.playlist[indice];
         }
         return null;
