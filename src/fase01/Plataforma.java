@@ -25,7 +25,7 @@ public class Plataforma {
         return false;
     }
 
-    public Musica buscarMusicaPorId(int id){
+    public Musica buscarMusica(int id){
         for(int i=0; i<this.quantMusicas; i ++){
             if(this.acervoMusicas[i].getId() == id){
                 return this.acervoMusicas[i];
