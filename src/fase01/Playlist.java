@@ -25,7 +25,7 @@ public class Playlist {
     }
 
     public boolean adicionar(Musica musica){
-        if(musica != null && this.quantMusicas < 100){
+        if(musica != null && this.quantMusicas < this.playlist.length){
             playlist[this.quantMusicas] = musica;
             this.quantMusicas++;
             return true;
