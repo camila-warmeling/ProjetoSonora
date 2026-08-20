@@ -16,7 +16,7 @@ public class Plataforma {
     }
 
     public boolean cadastrarUsuario(Usuario usuario){
-        if(usuario != null && this.quantUsuarios < this.acervoMusicas.length){
+        if(usuario != null && this.quantUsuarios < this.acervoUsuarios.length){
             this.acervoUsuarios[this.quantUsuarios] = usuario;
             this.quantUsuarios ++;
             return true;
@@ -36,7 +36,7 @@ public class Plataforma {
 
     public Musica buscarMusica(String titulo){
         for(int i=0; i<this.quantMusicas; i ++){
-            if(this.acervoMusicas[i].getTitulo() == titulo){
+            if(this.acervoMusicas[i].getTitulo().equalsIgnoreCase(titulo)){
                 return this.acervoMusicas[i];
             }
         }
