@@ -43,6 +43,15 @@ public class Plataforma {
         return null;
     }
 
+    public Usuario buscarUsuario(int id){
+        for(int i=0; i<this.quantUsuarios; i ++){
+            if(this.acervoUsuarios[i].getId() == id){
+                return this.acervoUsuarios[i];
+            }
+        }
+        return null;
+    }
+
     public int getTotalMusicas(){
         return this.quantMusicas;
     }
