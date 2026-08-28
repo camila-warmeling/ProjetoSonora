@@ -8,7 +8,17 @@ public class Usuario {
     private String email;
 
     public Usuario(String nome, String email){
+        if(nome == null || nome.trim().isEmpty()){
+            throw new IllegalArgumentException("O nome não pode ser vazio.");
+        }
         this.nome = nome;
+
+        if(nome == null || nome.trim().isEmpty()){
+            throw new IllegalArgumentException("O nome não pode ser vazio.");
+        }
+        if(!email.contains("@")){
+            throw new IllegalArgumentException("O nome não pode ser vazio nem nulo");
+        }
         this.email = email;
     
         setId();
