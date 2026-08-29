@@ -44,14 +44,14 @@ public class Playlist {
 
     public Musica getNaPosicao(int indice){
         if(indice < 0 || indice >= this.quantMusicas){//a quantidade de músicas sempre vai ser indice+1. Pois o índice começa no 0 ao invés do 1.
-            throw new IndexOutOfBoundsException("Erro ao tentar mostrar a música: o índice " + indice + " não existe nessa playlist.");
+            throw new IndexOutOfBoundsException("o índice " + indice + " não existe nessa playlist.");
         }
         return this.playlist[indice];
     }
 
     public void removerNaPosicao(int indice){
         if(indice < 0 || indice >= this.quantMusicas){ 
-            throw new IndexOutOfBoundsException("Erro ao tentar remover a música: o índice " + indice + " não existe nessa playlist.");
+            throw new IndexOutOfBoundsException("o índice " + indice + " não existe nessa playlist.");
         }
 
         for(int i=indice; i<this.quantMusicas - 1; i++){
