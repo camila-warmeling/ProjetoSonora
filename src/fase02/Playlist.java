@@ -10,12 +10,10 @@ public class Playlist {
     public Playlist(String nome, Usuario dono){
         if(nome == null || nome.trim().isEmpty()){
             throw new IllegalArgumentException("O nome não pode ser vazio.");
-        }
-        this.nome = nome;
-
-        if(dono == null){
+        }else if(dono == null){
             throw new IllegalArgumentException("É necessário um dono para criar a playlist.");
         }
+        this.nome = nome;
         this.dono = dono;
     }
 

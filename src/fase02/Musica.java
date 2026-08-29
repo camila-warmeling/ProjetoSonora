@@ -16,17 +16,13 @@ public class Musica {
         //isEmpty() - retorna true se o tamanho da string for zero
         if(titulo == null || titulo.trim().isEmpty()){
             throw new IllegalArgumentException("O título não pode ser vazio.");
-        }
-        this.titulo = titulo;
-
-        if(artista == null || artista.trim().isEmpty()){
+        } else if (artista == null || artista.trim().isEmpty()){
             throw new IllegalArgumentException("O artista não pode ser vazio.");
-        }
-        this.artista = artista;
-
-        if(duracaoSegundos <= 0){
+        } else if (duracaoSegundos <= 0){
             throw new IllegalArgumentException("A duração da música deve ser maior que 0. Número digitado: " + duracaoSegundos);
         }
+        this.titulo = titulo;
+        this.artista  = artista;
         this.duracaoSegundos = duracaoSegundos;
 
         setId(); //atribui um id para o objeto no momento em que é instanciado
