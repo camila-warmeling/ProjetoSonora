@@ -7,7 +7,10 @@ public class Plataforma {
     private int quantUsuarios = 0;
 
     public boolean cadastrarMusica(Musica musica){
-        if(musica != null && this.quantMusicas < this.acervoMusicas.length){
+        if(musica == null){
+            throw new IllegalArgumentException("Não é possível criar uma música em branco.");
+        }
+        if(this.quantMusicas < this.acervoMusicas.length){
             this.acervoMusicas[this.quantMusicas] = musica;
             this.quantMusicas ++;
             return true;
