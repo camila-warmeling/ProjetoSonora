@@ -20,7 +20,9 @@ public class Leitor {
             try{ //se for possível fazer a conversão o while acaba.
                 return Integer.parseInt(scanner.nextLine()); 
             }catch(NumberFormatException e){
-                System.out.println("Número inválido. Digite um número inteiro.");
+                System.err.println("Número inválido. Digite um número inteiro.");
+            }catch(Exception e){
+                System.err.println("Número inválido. Digite somente números inteiros.");
             }
         }
     }
