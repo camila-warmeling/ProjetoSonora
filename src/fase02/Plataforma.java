@@ -8,7 +8,7 @@ public class Plataforma {
 
     public boolean cadastrarMusica(Musica musica){
         if(musica == null){
-            throw new IllegalArgumentException("Não é possível criar uma música em branco.");
+            throw new IllegalArgumentException("Não é possível criar uma música vazio.");
         }
         if(this.quantMusicas < this.acervoMusicas.length){
             this.acervoMusicas[this.quantMusicas] = musica;
@@ -19,7 +19,10 @@ public class Plataforma {
     }
 
     public boolean cadastrarUsuario(Usuario usuario){
-        if(usuario != null && this.quantUsuarios < this.acervoUsuarios.length){
+        if(usuario == null){
+            throw new IllegalArgumentException("Não é possível criar um usuário vazio.");
+        }
+        if(this.quantUsuarios < this.acervoUsuarios.length){
             this.acervoUsuarios[this.quantUsuarios] = usuario;
             this.quantUsuarios ++;
             return true;
