@@ -8,7 +8,14 @@ public class Playlist {
     private int quantMusicas;
 
     public Playlist(String nome, Usuario dono){
+        if(nome == null || nome.trim().isEmpty()){
+            throw new IllegalArgumentException("O nome não pode ser vazio.");
+        }
         this.nome = nome;
+
+        if(dono == null){
+            throw new IllegalArgumentException("É necessário um dono para criar a playlist.");
+        }
         this.dono = dono;
     }
 
@@ -25,7 +32,11 @@ public class Playlist {
     }
 
     public boolean adicionar(Musica musica){
-        if(musica != null && this.quantMusicas < this.playlist.length){
+        if(musica == null){
+            throw new IllegalArgumentException("Não é possível adicionar uma música em branco.");
+        }
+
+        if(this.quantMusicas < this.playlist.length){
             playlist[this.quantMusicas] = musica;
             this.quantMusicas++;
             return true;
@@ -34,25 +45,22 @@ public class Playlist {
     }
 
     public Musica getNaPosicao(int indice){
-        if(indice >= 0 && indice < this.quantMusicas){ //a quantidade de músicas sempre vai ser indice+1. Pois o índice começa no 0 ao invés do 1.
-            return this.playlist[indice];
+        if(indice < 0 || indice >= this.quantMusicas){//a quantidade de músicas sempre vai ser indice+1. Pois o índice começa no 0 ao invés do 1.
+            throw new IndexOutOfBoundsException("Erro ao tentar mostrar a música: o índice " + indice + " não existe nessa playlist.");
         }
-        return null;
+        return this.playlist[indice];
     }
 
-    public boolean removerNaPosicao(int indice){
+    public void removerNaPosicao(int indice){
         if(indice < 0 || indice >= this.quantMusicas){ 
-            return false; 
+            throw new IndexOutOfBoundsException("Erro ao tentar remover a música: o índice " + indice + " não existe nessa playlist.");
         }
 
         for(int i=indice; i<this.quantMusicas - 1; i++){
             this.playlist[i] = this.playlist[i + 1]; //a musica vai ser removida ao ser sobrescrita pela do indice seguinte.
         }
-
         this.playlist[this.quantMusicas - 1] = null; //apaga a ultima musica da playlist pois se tornou repetida.
         this.quantMusicas --;
-
-        return true;
     }
 
     public int getDuracaoTotalSegundos(){

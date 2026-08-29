@@ -25,7 +25,7 @@ public class Musica {
         this.artista = artista;
 
         if(duracaoSegundos <= 0){
-            throw new IllegalArgumentException("A duração da música deve ser de pelo menos 1 segundo.");
+            throw new IllegalArgumentException("A duração da música deve ser maior que 0. Número digitado: " + duracaoSegundos);
         }
         this.duracaoSegundos = duracaoSegundos;
 

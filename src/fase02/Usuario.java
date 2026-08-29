@@ -13,11 +13,11 @@ public class Usuario {
         }
         this.nome = nome;
 
-        if(nome == null || nome.trim().isEmpty()){
-            throw new IllegalArgumentException("O nome não pode ser vazio.");
+        if(email == null || email.trim().isEmpty()){
+            throw new IllegalArgumentException("O email não pode ser vazio.");
         }
         if(!email.contains("@")){
-            throw new IllegalArgumentException("O nome não pode ser vazio nem nulo");
+            throw new IllegalArgumentException("O email deve conter '@'.");
         }
         this.email = email;
     
