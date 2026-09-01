@@ -11,7 +11,7 @@ public class Playlist {
         if(nome == null || nome.trim().isEmpty()){
             throw new IllegalArgumentException("O nome não pode ser vazio.");
         }else if(dono == null){
-            throw new IllegalArgumentException("É necessário um dono para criar a playlist.");
+            throw new IllegalArgumentException("É necessário um dono válido para criar a playlist.");
         }
         this.nome = nome;
         this.dono = dono;
