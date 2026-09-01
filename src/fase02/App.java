@@ -172,7 +172,7 @@ public class App {
             }catch(IllegalArgumentException e){
                 System.out.println("Erro ao criar a playlist: " + e.getMessage());
             }
-        
+            
     }
 
     private void adicionarMusicas(){
