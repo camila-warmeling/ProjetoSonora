@@ -50,6 +50,9 @@ public class Plataforma {
     }
 
     public Usuario buscarUsuario(int id){
+        if(this.quantUsuarios == 0){
+            throw new IllegalStateException("Não foi criado nenhum usuário ainda.");
+        }
         for(int i=0; i<this.quantUsuarios; i ++){
             if(this.acervoUsuarios[i].getId() == id){
                 return this.acervoUsuarios[i];

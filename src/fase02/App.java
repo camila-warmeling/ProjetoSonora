@@ -162,19 +162,17 @@ public class App {
         String nomePlaylist = leitor.lerTexto("Digite o nome da playlist:");
         int idUsuario = leitor.lerInteiro("Digite o id do usuário criador da playlist:");
         
-        Usuario buscarUsuario = plataforma.buscarUsuario(idUsuario);
-        if(buscarUsuario != null){
-            try{
-                this.playlist = new Playlist(nomePlaylist, buscarUsuario);
-                System.out.println("Playlist criada com sucesso.");
-                adicionarMusicas();
+        try{
+            Usuario buscarUsuario = plataforma.buscarUsuario(idUsuario);
+            this.playlist = new Playlist(nomePlaylist, buscarUsuario);
+            System.out.println("Playlist criada com sucesso.");
+            adicionarMusicas();
+            }catch(IllegalStateException e){
+                System.out.println("Erro ao criar a playlist: " + e.getMessage());
             }catch(IllegalArgumentException e){
                 System.out.println("Erro ao criar a playlist: " + e.getMessage());
             }
-        }else{
-            System.out.println("Não foi possível encontrar o usuário com id: " + idUsuario);
-            System.out.println("Playlist não foi criada");
-        }
+        
     }
 
     private void adicionarMusicas(){
@@ -297,7 +295,6 @@ public class App {
         }
     }
     
-
     private void reproduzirMusica(){
         System.out.println("\n ----- Reproduzir Música -----");
 
