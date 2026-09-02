@@ -57,7 +57,7 @@ public class App {
             System.out.println("4 - Buscar música por id");
             System.out.println("5 - Buscar música por título");
             System.out.println("6 - Remover uma música da playlist");
-            System.out.println("7 - Mostrar músicas da playlist");
+            System.out.println("7 - Pesquisar música da playlist");
             System.out.println("8 - Reproduzir uma música");
             System.out.println("9 - Listar acervo de Músicas");
             System.out.println("0 - Sair");
