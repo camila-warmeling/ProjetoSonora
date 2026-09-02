@@ -89,7 +89,7 @@ public class App {
                     break;
 
                 case 7:
-                    mostrarMusicasPlaylist();
+                    pesquisarMusicaPlaylist();
                     break;
 
                 case 8:
@@ -257,7 +257,7 @@ public class App {
         }
     }
 
-    private void mostrarMusicasPlaylist(){
+    private void pesquisarMusicaPlaylist(){
         if (this.playlist == null) {
             System.out.println("Nenhuma playlist foi criada ainda.");
             return;
@@ -268,29 +268,22 @@ public class App {
             return;
         }
 
-        System.out.println("\n ----- Músicas da Playlist: " + playlist.getNome() + " -----");
-
+        int indice = leitor.lerInteiro("\n Digite o id da música para pesquisar:");
         try {
-            for (int i = 0; i < playlist.getQuantidade(); i++) {
-                Musica m = playlist.getNaPosicao(i);
+            Musica m = playlist.getNaPosicao(indice);
                 
-                System.out.println("ID na playlist: " + i);
-                System.out.println("Título: " + m.getTitulo());
-                System.out.println("Artista: " + m.getArtista());
-                System.out.println("Duração: " + m.getDuracaoFormatada());
-                System.out.println("Reproduções: " + m.getReproducoes());
-                System.out.println("----------------------------------------");
-            }
-
+            System.out.println("ID na playlist: " + indice);
+            System.out.println("Título: " + m.getTitulo());
+            System.out.println("Artista: " + m.getArtista());
+            System.out.println("Duração: " + m.getDuracaoFormatada());
+            System.out.println("Reproduções: " + m.getReproducoes());
+        
         }catch(IndexOutOfBoundsException e){
-            System.out.println("Erro ao acessar posição da música: " + e.getMessage());
+            System.out.println("Erro ao acessar posição da música na playlist: " + e.getMessage());
 
         }catch(Exception e){
-            System.out.println("Erro inesperado ao exibir a playlist: " + e.getMessage());
+            System.out.println("Erro inesperado ao exibir a música da playlist: " + e.getMessage());
 
-        }finally{
-            System.out.println("Fim da exibição da playlist.");
-            System.out.println("----------------------------------------");
         }
     }
     
