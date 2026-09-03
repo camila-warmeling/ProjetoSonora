@@ -2,6 +2,9 @@ package fase03.test;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.DisplayName;
+
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import fase03.Musica;
 
@@ -49,4 +52,52 @@ public class MusicaTest {
         assertEquals("09:59", resultado);
     }
 
+//----------------------------------------------------------------------------------------------------
+
+    @Test
+    @DisplayName ("PL02 - Caso 01 - Título vazio deve ser rejeitado")
+    public void pl02tituloVazio(){ //assertThrows indica que é esperado um erro
+        assertThrows(IllegalArgumentException.class, () ->{
+            musica = new Musica("", "Queen", 355);
+        });
+    }
+
+    @Test
+    @DisplayName ("PL02 - Caso 02 - Título nulo deve ser rejeitado")
+    public void pl02tituloNullRejeitada(){
+        assertThrows(IllegalArgumentException.class, () ->{
+            musica = new Musica(null, "Queen", 355);
+        });
+    }
+
+        @Test
+    @DisplayName ("PL02 - Caso 03 - Artista vazio deve ser rejeitado")
+    public void pl02artistaVazioRejeitada(){
+        assertThrows(IllegalArgumentException.class, () ->{
+            musica = new Musica("Bohemian Rhapsody", "", 355);
+        });
+    }
+
+        @Test
+    @DisplayName ("PL02 - Caso 04 - Duração zero deve ser rejeitada")
+    public void pl02duracaoZeroRejeitada(){
+        assertThrows(IllegalArgumentException.class, () ->{
+            musica = new Musica("Bohemian Rhapsody", "Queen", 0);
+        });    
+    }
+
+        @Test
+    @DisplayName ("PL02 - Caso 05 - Duração negativa deve ser rejeitada")
+    public void pl02duracaoNegativaRejeitada(){
+        assertThrows(IllegalArgumentException.class, () ->{
+            musica = new Musica("Bohemian Rhapsody", "Queen", -10);
+        });    
+    }
+
+        @Test
+    @DisplayName ("PL02 - Caso 06 - Dados válidos criam a música")
+    public void pl02dadosValidosCriamMusica(){
+        musica = new Musica("Bohemian Rhapsody", "Queen", 355);
+        assertNotNull(musica);
+    }
 }
