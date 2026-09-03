@@ -5,12 +5,17 @@ import org.junit.jupiter.api.DisplayName;
 
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThrows;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import fase03.Musica;
+import fase03.Plataforma;
+import fase03.Usuario;
 
 public class MusicaTest {
     private Musica musica;
+    private Plataforma plataforma;
+    private Usuario usuario;
 
     @Test
     @DisplayName ("PL01 - Caso 01 - Duração com minutos e segundos")
@@ -135,5 +140,34 @@ public class MusicaTest {
         
         int quantReproducoes = musica.getReproducoes();
         assertEquals(3, quantReproducoes);
+    }
+
+//---------------------------------------------------------------------------------------------
+    @Test 
+    @DisplayName ("PL08 - Caso 01 - criar músicas válidas recebendo id sequencial e criar um usuário para mostrar a independência de música e usuário")
+    public void pl08criarMusicasComIdSequencialIndependenteDeUsuario(){
+        plataforma = new Plataforma();
+
+        Musica m1 = new Musica("Bohemian Rhapsody", "Queen", 354);
+        boolean cadastrouM1 = plataforma.cadastrarMusica(m1);
+
+        //usuario sendo criado no meio da criação das músicas sem atrapalhar na criação dos id
+        usuario = new Usuario("Camila", "camila@gmail.com");
+        
+        Musica m2 = new Musica("Song 2", "Blur", 122);
+        Musica m3 = new Musica("Hotel California", "Eagles", 390);
+        boolean cadastrouM2 = plataforma.cadastrarMusica(m2);
+        boolean cadastrouM3 = plataforma.cadastrarMusica(m3);
+
+        assertTrue(cadastrouM1);
+        assertTrue(cadastrouM2);
+        assertTrue(cadastrouM3);
+
+
+        assertEquals(1, m1.getId());
+        assertEquals(2, m2.getId());
+        assertEquals(3, m3.getId());
+
+        assertEquals(1, usuario.getId());
     }
 }
