@@ -1,10 +1,14 @@
 package fase03.test;
 
 import org.junit.jupiter.api.Test;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import org.junit.jupiter.api.DisplayName;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
 import fase03.Musica;
@@ -61,4 +65,56 @@ public class PlaylistTest {
         assertFalse(adicionar);
         assertEquals(100, playlist.getQuantidadeMusicas());
     }
+
+//----------------------------------------------------------------------------------------------------
+
+    public Playlist criarPlaylistComMusicas(){
+        Usuario us = new Usuario("UsuarioB", "email@teste.com");
+        Playlist pl = new Playlist("Nova Playlist", us);
+
+        pl.adicionarMusica(new Musica("Short Song", "Test Band", 65));
+        pl.adicionarMusica(new Musica("Smells Like Teen Spirit", "Nirvana", 301));
+        pl.adicionarMusica(new Musica("Blinding Lights", "The Weeknd", 200));
+        pl.adicionarMusica(new Musica("Wonderwall", "Oasis", 258));
+        pl.adicionarMusica(new Musica("Californication", "Red Hot Chili Peppers", 321));
+
+        return pl;
+    }
+
+    @Test
+    @DisplayName ("PL04 - Caso 01 - Pesquisar música que está dentro da playlist")
+    public void pl04pesquisaMusicaDaPlaylist(){
+        Playlist playlist = criarPlaylistComMusicas();
+        Musica musica = playlist.getMusicaNaPosicao(0);
+        assertNotNull(musica);
+        assertEquals("Short Song", musica.getTitulo());
+    }
+
+    @Test
+    @DisplayName ("PL04 - Caso 02 - Pesquisa com índice negativo")
+    public void pl04pesquisarComIndiceNegativo(){
+        Playlist playlist = criarPlaylistComMusicas();
+        assertThrows(IndexOutOfBoundsException.class, () ->{
+            playlist.getMusicaNaPosicao(-1);
+        });
+    }
+
+    @Test
+    @DisplayName ("PL04 - Caso 03 - Pesquisar com índice que ultrapassa o limite de capacidade da playlist")
+    public void pl04pesquisarIndiceAlemDaCapacidade(){
+        Playlist playlist = criarPlaylistComMusicas();
+        assertThrows(IndexOutOfBoundsException.class, () ->{
+            playlist.getMusicaNaPosicao(101);
+        });
+    }
+
+    @Test
+    @DisplayName ("PL04 - Caso 04 - Pesquisar com indice que não possui uma música cadastrada")
+    public void pl04pesquisarIndiceQueNaoPossui(){
+        Playlist playlist = criarPlaylistComMusicas();
+        assertThrows(IndexOutOfBoundsException.class, () ->{
+            playlist.getMusicaNaPosicao(10);
+        });
+    }
+
 }
