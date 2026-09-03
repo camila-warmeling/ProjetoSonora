@@ -43,15 +43,19 @@ public class Playlist {
     }
 
     public Musica getNaPosicao(int indice){
-        if(indice < 0 || indice >= this.quantMusicas){//a quantidade de músicas sempre vai ser indice+1. Pois o índice começa no 0 ao invés do 1.
-            throw new IndexOutOfBoundsException("o índice " + indice + " não existe nessa playlist.");
+        if(indice < 0 || indice > 99){
+            throw new IndexOutOfBoundsException("Os indices devem estar presentes no intervalo de 0 a 99.");
+        }else if(indice >= this.quantMusicas){//a quantidade de músicas sempre vai ser indice+1. Pois o índice começa no 0 ao invés do 1.
+            throw new IndexOutOfBoundsException("Ainda não foi adicionado uma música com id " + indice + " nesta playlist.");
         }
         return this.playlist[indice];
     }
 
     public void removerNaPosicao(int indice){
-        if(indice < 0 || indice >= this.quantMusicas){ 
-            throw new IndexOutOfBoundsException("o índice " + indice + " não existe nessa playlist.");
+        if(indice < 0 || indice > 99){
+            throw new IndexOutOfBoundsException("Os indices devem estar presentes no intervalo de 0 a 99.");
+        }else if(indice >= this.quantMusicas){//a quantidade de músicas sempre vai ser indice+1. Pois o índice começa no 0 ao invés do 1.
+            throw new IndexOutOfBoundsException("Ainda não foi adicionado uma música com id " + indice + " nesta playlist.");
         }
 
         for(int i=indice; i<this.quantMusicas - 1; i++){
