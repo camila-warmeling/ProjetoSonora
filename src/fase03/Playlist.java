@@ -25,11 +25,11 @@ public class Playlist {
         return this.dono;
     }
 
-    public int getQuantidade(){
+    public int getQuantidadeMusicas(){
         return this.quantMusicas;
     }
 
-    public boolean adicionar(Musica musica){
+    public boolean adicionarMusica(Musica musica){
         if(musica == null){
             throw new IllegalArgumentException("Não é possível adicionar uma música em branco.");
         }
@@ -42,7 +42,7 @@ public class Playlist {
         return false;
     }
 
-    public Musica getNaPosicao(int indice){
+    public Musica getMusicaNaPosicao(int indice){
         if(indice < 0 || indice > 99){
             throw new IndexOutOfBoundsException("Os indices devem estar presentes no intervalo de 0 a 99.");
         }else if(indice >= this.quantMusicas){//a quantidade de músicas sempre vai ser indice+1. Pois o índice começa no 0 ao invés do 1.
@@ -51,7 +51,7 @@ public class Playlist {
         return this.playlist[indice];
     }
 
-    public void removerNaPosicao(int indice){
+    public void removerMusicaNaPosicao(int indice){
         if(indice < 0 || indice > 99){
             throw new IndexOutOfBoundsException("Os indices devem estar presentes no intervalo de 0 a 99.");
         }else if(indice >= this.quantMusicas){//a quantidade de músicas sempre vai ser indice+1. Pois o índice começa no 0 ao invés do 1.
