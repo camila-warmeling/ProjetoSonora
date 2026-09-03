@@ -6,10 +6,11 @@ import org.junit.jupiter.api.DisplayName;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import fase03.Musica;
 
 public class MusicaTest {
-    Musica musica;
+    private Musica musica;
 
     @Test
     @DisplayName ("PL01 - Caso 01 - Duração com minutos e segundos")
@@ -70,7 +71,7 @@ public class MusicaTest {
         });
     }
 
-        @Test
+    @Test
     @DisplayName ("PL02 - Caso 03 - Artista vazio deve ser rejeitado")
     public void pl02artistaVazioRejeitada(){
         assertThrows(IllegalArgumentException.class, () ->{
@@ -78,7 +79,7 @@ public class MusicaTest {
         });
     }
 
-        @Test
+    @Test
     @DisplayName ("PL02 - Caso 04 - Duração zero deve ser rejeitada")
     public void pl02duracaoZeroRejeitada(){
         assertThrows(IllegalArgumentException.class, () ->{
@@ -86,7 +87,7 @@ public class MusicaTest {
         });    
     }
 
-        @Test
+    @Test
     @DisplayName ("PL02 - Caso 05 - Duração negativa deve ser rejeitada")
     public void pl02duracaoNegativaRejeitada(){
         assertThrows(IllegalArgumentException.class, () ->{
@@ -94,10 +95,45 @@ public class MusicaTest {
         });    
     }
 
-        @Test
+    @Test
     @DisplayName ("PL02 - Caso 06 - Dados válidos criam a música")
     public void pl02dadosValidosCriamMusica(){
         musica = new Musica("Bohemian Rhapsody", "Queen", 355);
         assertNotNull(musica);
+    }
+
+//----------------------------------------------------------------------------------------------------
+
+    @Test
+    @DisplayName ("PL07 - Caso 01 - Verificar valor inicial de reproduções (0)")
+    public void pl07verificarValorIncialReproducoes(){
+        Musica musica = new Musica("Song 1", "Blur", 122);
+
+        int quantReproducoes = musica.getReproducoes();
+        assertEquals(0, quantReproducoes);
+    }
+
+    @Test
+    @DisplayName ("PL07 - Caso 02 - Reproduzir a música uma vez")
+    public void pl07reproduzirMusicaPrimeiraVez(){
+        Musica musica = new Musica("Song 2", "Blur", 122);
+        
+        musica.reproduzir();
+        
+        int quantReproducoes = musica.getReproducoes();
+        assertEquals(1, quantReproducoes);
+    }
+
+    @Test
+    @DisplayName ("PL07 - Caso 03 - Reproduzir a mesma música diversas vezes")
+    public void pl07reproduzirMusicaDiversasVezes(){
+        Musica musica = new Musica("Song 3", "Blur", 122);
+        
+        musica.reproduzir();
+        musica.reproduzir();
+        musica.reproduzir();
+        
+        int quantReproducoes = musica.getReproducoes();
+        assertEquals(3, quantReproducoes);
     }
 }
