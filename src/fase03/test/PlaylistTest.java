@@ -117,4 +117,46 @@ public class PlaylistTest {
         });
     }
 
+//-------------------------------------------------------------------------------------------------------------------
+
+    @Test 
+    @DisplayName ("PL05 - Caso 01 - Remover com índice dentro da playlist, reorganizando-a")
+    public void pl05removerIndiceReorganizadoPlaylist(){
+        Playlist playlist = criarPlaylistComMusicas();
+        int qtdInicial = playlist.getQuantidadeMusicas();
+
+        Musica segundaMusica = playlist.getMusicaNaPosicao(1); //título da segunda música
+        playlist.removerMusicaNaPosicao(0);
+        
+        assertEquals(qtdInicial - 1, playlist.getQuantidadeMusicas());
+        assertEquals(segundaMusica.getTitulo(), playlist.getMusicaNaPosicao(0).getTitulo());
+    }
+
+        @Test 
+    @DisplayName ("PL05 - Caso 02 - Remover um índice que não possui uma música cadastrada")
+    public void pl05removerIndiceSemCadastro(){
+        Playlist playlist = criarPlaylistComMusicas();
+        assertThrows(IndexOutOfBoundsException.class, () ->{
+            playlist.getMusicaNaPosicao(10);
+        });
+    }
+
+        @Test 
+    @DisplayName ("PL05 - Caso 03 - Remover com índice negativo")
+    public void pl05removerIndiceNegativo(){
+        Playlist playlist = criarPlaylistComMusicas();
+        assertThrows(IndexOutOfBoundsException.class, () ->{
+            playlist.removerMusicaNaPosicao(-1);
+        });
+    }
+
+        @Test 
+    @DisplayName ("PL05 - Caso 04 - Remover com índice que vai além da quantidade permitida da playlist")
+    public void pl05removerIndiceAlemDaCapacidade(){
+        Playlist playlist = criarPlaylistComMusicas();
+        assertThrows(IndexOutOfBoundsException.class, () ->{
+            playlist.removerMusicaNaPosicao(101);
+        });
+    }
+
 }
