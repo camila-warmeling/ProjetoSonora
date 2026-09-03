@@ -188,11 +188,11 @@ public class App {
                 Musica musicaEncontrada = plataforma.buscarMusica(id);
 
                 if(musicaEncontrada != null){
-                    boolean sucesso = playlist.adicionar(musicaEncontrada);
+                    boolean sucesso = playlist.adicionarMusica(musicaEncontrada);
 
                     if(sucesso){
                         System.out.println("Música '" + musicaEncontrada.getTitulo() + "' adicionada à playlist '" + playlist.getNome() + "'!");
-                        System.out.println("Total de músicas na playlist agora: " + playlist.getQuantidade());
+                        System.out.println("Total de músicas na playlist agora: " + playlist.getQuantidadeMusicas());
                         System.out.println("Duração total da playlist: " + playlist.getDuracaoTotalSegundos() + "s\n");
                     }else{
                         System.out.println("Não foi possível adicionar a música. A playlist pode estar cheia (limite de 100).");
@@ -248,7 +248,7 @@ public class App {
         int posicao = leitor.lerInteiro("Digite o índice da música a ser removida:");
 
         try{
-            playlist.removerNaPosicao(posicao);            
+            playlist.removerMusicaNaPosicao(posicao);            
             System.out.println("Música removida da playlist com sucesso!");
         }catch(IndexOutOfBoundsException e) {
             System.out.println("Erro de posição: " + e.getMessage());
@@ -263,14 +263,14 @@ public class App {
             return;
         }
 
-        if (playlist.getQuantidade() == 0) {
+        if (playlist.getQuantidadeMusicas() == 0) {
             System.out.println("A playlist '" + playlist.getNome() + "' está vazia.");
             return;
         }
 
         int indice = leitor.lerInteiro("\n Digite o id da música para pesquisar:");
         try {
-            Musica m = playlist.getNaPosicao(indice);
+            Musica m = playlist.getMusicaNaPosicao(indice);
                 
             System.out.println("ID na playlist: " + indice);
             System.out.println("Título: " + m.getTitulo());
