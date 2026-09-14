@@ -1,71 +1,55 @@
 package fase04;
 
+import java.util.ArrayList;
+
 public class Plataforma {
-    private Musica[] acervoMusicas = new Musica[500];
-    private Usuario[] acervoUsuarios = new Usuario[500];
-    private int quantMusicas = 0;
-    private int quantUsuarios = 0;
+    private ArrayList<Musica> acervoMusicas = new ArrayList<>();
+    private ArrayList<Usuario> acervoUsuarios = new ArrayList<>();
 
     public boolean cadastrarMusica(Musica musica){
         if(musica == null){
             throw new IllegalArgumentException("Não é possível criar uma música vazio.");
         }
-        if(this.quantMusicas < this.acervoMusicas.length){
-            this.acervoMusicas[this.quantMusicas] = musica;
-            this.quantMusicas ++;
-            return true;
-        }
-        return false;
+        this.acervoMusicas.add(musica);
+        return true;
     }
 
     public boolean cadastrarUsuario(Usuario usuario){
         if(usuario == null){
             throw new IllegalArgumentException("Não é possível criar um usuário vazio.");
         }
-        if(this.quantUsuarios < this.acervoUsuarios.length){
-            this.acervoUsuarios[this.quantUsuarios] = usuario;
-            this.quantUsuarios ++;
-            return true;
-        }
+        this.acervoUsuarios.add(usuario);
 
-        return false;
+        return true;
     }
 
     public Musica buscarMusica(int id){
-        for(int i=0; i<this.quantMusicas; i ++){
-            if(this.acervoMusicas[i].getId() == id){
-                return this.acervoMusicas[i];
+        for(int i=0; i<acervoMusicas.size(); i ++){
+            if(this.acervoMusicas.get(i).getId() == id){
+                return this.acervoMusicas.get(i);
             }
         }
         return null;
     }
 
     public Musica buscarMusica(String titulo){
-        for(int i=0; i<this.quantMusicas; i ++){
-            if(this.acervoMusicas[i].getTitulo().equalsIgnoreCase(titulo)){
-                return this.acervoMusicas[i];
+        for(int i=0; i<this.acervoMusicas.size(); i ++){
+            if(this.acervoMusicas.get(i).getTitulo().equalsIgnoreCase(titulo)){
+                return this.acervoMusicas.get(i);
             }
         }
         return null;
     }
 
     public Usuario buscarUsuario(int id){
-        if(this.quantUsuarios == 0){
+        if(this.acervoUsuarios.size() == 0){
             throw new IllegalStateException("Não foi criado nenhum usuário ainda.");
         }
-        for(int i=0; i<this.quantUsuarios; i ++){
-            if(this.acervoUsuarios[i].getId() == id){
-                return this.acervoUsuarios[i];
+        for(int i=0; i<this.acervoUsuarios.size(); i ++){
+            if(this.acervoUsuarios.get(i).getId() == id){
+                return this.acervoUsuarios.get(i);
             }
         }
         return null;
-    }
-
-    public int getTotalMusicas(){
-        return this.quantMusicas;
-    }
-
-    public int getTotalUsuarios(){
-        return this.quantUsuarios;
     }
 }   
