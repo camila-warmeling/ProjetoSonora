@@ -26,6 +26,10 @@ public class Playlist {
         return this.dono;
     }
 
+    public int getQuantidadeMusicas(){
+        return this.playlist.size();
+    }
+
     public boolean adicionarMusica(Musica musica){
         if(musica == null){
             throw new IllegalArgumentException("Não é possível adicionar uma música em branco.");
