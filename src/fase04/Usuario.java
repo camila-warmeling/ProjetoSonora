@@ -1,11 +1,14 @@
 package fase04;
 
+import java.util.ArrayList;
+
 public class Usuario {
 
     private int id;
     private static int contador = 0;
     private String nome;
     private String email;
+    private ArrayList<Usuario> seguindo;
 
     public Usuario(String nome, String email){
         if(nome == null || nome.trim().isEmpty()){
@@ -17,6 +20,7 @@ public class Usuario {
         }
         this.nome = nome;
         this.email = email;
+        this.seguindo = new ArrayList<>();
     
         setId();
     }
@@ -36,5 +40,25 @@ public class Usuario {
 
     public String getEmail(){
         return this.email;
+    }
+
+    public void seguir(Usuario outro){
+        if(outro == null){
+            throw new IllegalArgumentException("O usuário que vai ser seguido não pode ser nulo.");
+        }else if(this == outro){
+            throw new IllegalArgumentException("O usuário não pode seguir ele mesmo.");
+        }else if(seguindo.contains(outro)){
+            throw new IllegalArgumentException("Este usuário já está sendo seguido.");
+        }
+
+        seguindo.add(outro);
+    }
+
+    public void deixarDeSeguir(Usuario outro){
+
+    }
+
+    public int getQuantidadeSeguindo(){
+        return this.seguindo.size();
     }
 }
