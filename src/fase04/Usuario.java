@@ -47,7 +47,7 @@ public class Usuario {
             throw new IllegalArgumentException("O usuário que vai ser seguido não pode ser nulo.");
         }else if(this == outro){
             throw new IllegalArgumentException("O usuário não pode seguir ele mesmo.");
-        }else if(seguindo.contains(outro)){
+        }else if(this.seguindo.contains(outro)){
             throw new IllegalArgumentException("Este usuário já está sendo seguido.");
         }
 
@@ -55,7 +55,11 @@ public class Usuario {
     }
 
     public void deixarDeSeguir(Usuario outro){
+        if(!this.seguindo.contains(outro)){
+            throw new IllegalArgumentException();
+        }
 
+        seguindo.remove(outro);
     }
 
     public int getQuantidadeSeguindo(){
