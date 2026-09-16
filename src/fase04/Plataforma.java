@@ -52,4 +52,12 @@ public class Plataforma {
         }
         return null;
     }
+    
+        public int getTotalMusicas(){
+        return this.acervoMusicas.size();
+    }
+
+    public int getTotalUsuarios(){
+        return this.acervoUsuarios.size();
+    }
 }   
