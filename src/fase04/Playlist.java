@@ -55,10 +55,7 @@ public class Playlist {
             throw new IndexOutOfBoundsException("Ainda não foi adicionado uma música com id " + indice + " nesta playlist.");
         }
 
-        for(int i=indice; i<this.playlist.size() - 1; i++){
-            this.playlist.set(i, this.playlist.get(i+1)); //a musica vai ser removida ao ser sobrescrita pela do indice seguinte.
-        }
-        this.playlist.set(this.playlist.size() - 1, null);
+        this.playlist.remove(indice);
     }
 
     public int getDuracaoTotalSegundos(){
