@@ -10,7 +10,7 @@ public class Plataforma {
         if(musica == null){
             throw new IllegalArgumentException("Não é possível criar uma música vazio.");
         }
-        this.acervoMusicas.add(musica);
+        this.acervoMusicas.add(musica);  
         return true;
     }
 
