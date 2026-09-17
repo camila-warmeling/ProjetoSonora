@@ -50,15 +50,13 @@ public class Usuario {
         }else if(this.seguindo.contains(outro)){
             throw new IllegalArgumentException("Este usuário já está sendo seguido.");
         }
-
         seguindo.add(outro);
     }
 
     public void deixarDeSeguir(Usuario outro){
         if(!this.seguindo.contains(outro)){
-            throw new IllegalArgumentException("Este usuário não está em sua lista de seguindo.");
+            throw new IllegalArgumentException("Este usuário não está sendo seguindo.");
         }
-
         seguindo.remove(outro);
     }
 
