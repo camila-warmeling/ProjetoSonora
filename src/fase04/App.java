@@ -12,11 +12,11 @@ public class App {
     private App(){
         this.plataforma = new Plataforma();
         this.leitor = new Leitor();
-        popularAcervo();
+        popularAcervoMusicas();
         menu();
     }
 
-    private void popularAcervo() {
+    private void popularAcervoMusicas() {
         System.out.println("\n----- Populando Acervo de Testes -----");
 
         Musica[] bancoDeTestes = new Musica[] {
@@ -60,6 +60,9 @@ public class App {
             System.out.println("7 - Pesquisar música da playlist");
             System.out.println("8 - Reproduzir uma música");
             System.out.println("9 - Listar acervo de Músicas");
+            System.out.println("10 - Seguir um usuário");
+            System.out.println("11 - Deixar de seguir um usuário");
+            System.out.println("12 - Quantidade de pessoas seguindo");
             System.out.println("0 - Sair");
 
             opcao = leitor.lerInteiro("Digite a opção:");
@@ -99,6 +102,15 @@ public class App {
                 case 9:
                     listarAcervoMusicas();
                     break;
+
+                case 10:
+                    seguirOutroUsuario();
+
+                case 11:
+                    deixarDeSeguirOutroUsuario();
+
+                case 12:
+                    quantSeguindoUsuarios();
 
                 case 0:
                     System.out.println("Até a próxima!");
@@ -318,6 +330,67 @@ public class App {
                     System.out.println("");
                 }
             }
+        }
+    }
+
+private Usuario pesquisarUsuario(){
+        int idUsuario = leitor.lerInteiro("Digite o id do usuário que deseja acessar a conta: ");
+        
+        try{
+            Usuario usuario = plataforma.buscarUsuario(idUsuario);
+            return usuario;
+        }catch(IllegalStateException e){
+            System.out.println("Erro ao encontrar usuário: ");
+        }
+        return null;
+    }
+
+    private void seguirOutroUsuario(){
+        Usuario usuarioConta = pesquisarUsuario();
+        if(usuarioConta == null){
+            System.out.println("Não foi possível encontrar o usuário");
+        }else{
+            Usuario outroUsuario = pesquisarUsuario();
+            if(outroUsuario == null) {
+                System.out.println("Não foi possível encontrar o usuário a ser seguido.");
+                return;
+            }
+            
+            try {
+                usuarioConta.seguir(outroUsuario);
+                System.out.println("Usuário seguido com sucesso!");
+            } catch (IllegalArgumentException e) {
+                System.out.println("Erro: " + e.getMessage());
+            }
+        }
+    }
+
+    private void deixarDeSeguirOutroUsuario(){
+        Usuario usuarioConta = pesquisarUsuario();
+        if(usuarioConta == null){ 
+            System.out.println("Não foi possível encontrar o usuário");
+        }else{
+            Usuario outroUsuario = pesquisarUsuario();
+            if(outroUsuario == null){
+                System.out.println("Não foi possível encontrar o usuário a deixar de seguir.");
+                return;
+            }
+        
+            try{
+                usuarioConta.deixarDeSeguir(outroUsuario);
+                System.out.println("Você deixou de seguir este usuário com sucesso!");
+            }catch(IllegalArgumentException e){
+                System.out.println("Erro: " + e.getMessage());
+            }
+        }
+    }
+
+    private void quantSeguindoUsuarios(){
+        Usuario usuarioConta = pesquisarUsuario();
+        if(usuario == null){
+            System.out.println("Não foi possível encontrar o usuário");
+        }else{
+            System.out.println("A quantidade de usuários sendo seguidos pelo usuário " + usuarioConta.getNome() + " é " + usuarioConta.getQuantidadeSeguindo());
         }
     }
 
