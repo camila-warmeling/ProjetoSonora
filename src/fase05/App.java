@@ -393,8 +393,8 @@ public class App {
         }
     }
 
-    private Usuario pesquisarUsuario(){
-        int idUsuario = leitor.lerInteiro("Digite o id do usuário que deseja acessar a conta: ");
+ private Usuario pesquisarUsuario(String mensagemPersonalizada){
+        int idUsuario = leitor.lerInteiro(mensagemPersonalizada);
         
         try{
             Usuario usuario = plataforma.buscarUsuario(idUsuario);
@@ -406,12 +406,12 @@ public class App {
     }
 
     private void seguirOutroUsuario(){
-        Usuario usuarioConta = pesquisarUsuario();
+        System.out.println("\n ----- Seguir Usuário -----");
+        Usuario usuarioConta = pesquisarUsuario("Digite o ID do usuário que vai SEGUIR:");
         if(usuarioConta == null){
             System.out.println("Não foi possível encontrar o usuário principal.");
         }else{
-            System.out.println("Agora informe o usuário que deseja SEGUIR:");
-            Usuario outroUsuario = pesquisarUsuario();
+            Usuario outroUsuario = pesquisarUsuario("Digite o ID do usuário que VAI SER SEGUIDO:");
             if(outroUsuario == null) {
                 System.out.println("Não foi possível encontrar o usuário a ser seguido.");
                 return;
@@ -427,14 +427,14 @@ public class App {
     }
 
     private void deixarDeSeguirOutroUsuario(){
-        Usuario usuarioConta = pesquisarUsuario();
+        System.out.println("\n ----- Deixar de Seguir Usuário -----");
+        Usuario usuarioConta = pesquisarUsuario("Digite o ID do usuário principal:");
         if(usuarioConta == null){ 
             System.out.println("Não foi possível encontrar o usuário principal.");
         }else{
-            System.out.println("Agora informe o usuário que deseja DEIXAR DE SEGUIR:");
-            Usuario outroUsuario = pesquisarUsuario();
+            Usuario outroUsuario = pesquisarUsuario("Digite o ID do usuário que VAI DEIXAR DE SER SEGUIDO:");
             if(outroUsuario == null){
-                System.out.println("Não foi possível encontrar o usuário.");
+                System.out.println("Não foi possível encontrar o usuário alvo.");
                 return;
             }
         
@@ -448,14 +448,15 @@ public class App {
     }
 
     private void quantSeguindoUsuarios(){
-        Usuario usuarioConta = pesquisarUsuario();
+        System.out.println("\n ----- Consultar Quem Está Segurando -----");
+        Usuario usuarioConta = pesquisarUsuario("Digite o ID do usuário que deseja consultar:");
         if(usuarioConta == null){
             System.out.println("Não foi possível encontrar o usuário.");
         }else{
             System.out.println("A quantidade de usuários sendo seguidos por " + usuarioConta.getNome() + " é: " + usuarioConta.getQuantidadeSeguindo());
         }
     }
-
+    
     public static void main(String[] args) {
         new App();
     }
