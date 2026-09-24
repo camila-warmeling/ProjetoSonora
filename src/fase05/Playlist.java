@@ -6,7 +6,7 @@ public class Playlist {
 
     private ArrayList<Musica> playlist = new ArrayList<>();
     private String nome;
-    private Usuario dono; //a variável dono recebe somente objetos da classe Usuario 
+    private Usuario dono; 
 
     public Playlist(String nome, Usuario dono){
         if(nome == null || nome.trim().isEmpty()){
@@ -34,7 +34,6 @@ public class Playlist {
         if(musica == null){
             throw new IllegalArgumentException("Não é possível adicionar uma música em branco.");
         }
-
         playlist.add(musica);
         return true;
     }
@@ -42,8 +41,8 @@ public class Playlist {
     public Musica getMusicaNaPosicao(int indice){
         if(indice < 0 || indice > 99){
             throw new IndexOutOfBoundsException("Os indices devem estar presentes no intervalo de 0 a 99.");
-        }else if(indice >= this.playlist.size()){//a quantidade de músicas sempre vai ser indice+1. Pois o índice começa no 0 ao invés do 1.
-            throw new IndexOutOfBoundsException("Ainda não foi adicionado uma música com id " + indice + " nesta playlist.");
+        }else if(indice >= this.playlist.size()){
+            throw new IndexOutOfBoundsException("Ainda não foi adicionada uma música com índice " + indice + " nesta playlist.");
         }
         return this.playlist.get(indice);
     }
@@ -51,10 +50,9 @@ public class Playlist {
     public void removerMusicaNaPosicao(int indice){
         if(indice < 0 || indice > 99){
             throw new IndexOutOfBoundsException("Os indices devem estar presentes no intervalo de 0 a 99.");
-        }else if(indice >= this.playlist.size()){//a quantidade de músicas sempre vai ser indice+1. Pois o índice começa no 0 ao invés do 1.
-            throw new IndexOutOfBoundsException("Ainda não foi adicionado uma música com id " + indice + " nesta playlist.");
+        }else if(indice >= this.playlist.size()){
+            throw new IndexOutOfBoundsException("Ainda não foi adicionada uma música com índice " + indice + " nesta playlist.");
         }
-
         this.playlist.remove(indice);
     }
 
