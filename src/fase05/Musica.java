@@ -41,4 +41,9 @@ public class Musica extends Conteudo{
         reproducoes ++;
         super.reproduzir();
     }
+
+    @Override
+    public String toString() {
+        return super.toString() + " - " + artista + " (" + album + ")";
+    }
 }
