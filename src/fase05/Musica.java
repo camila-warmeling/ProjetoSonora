@@ -7,7 +7,7 @@ public class Musica extends Conteudo{
     private int reproducoes = 0;
 
 
-    public Musica(String titulo, String artista, int duracaoSegundos, String album){
+    public Musica(String titulo, String artista, String album, int duracaoSegundos){
         super(titulo, duracaoSegundos);
         if (artista == null || artista.trim().isEmpty()){
             throw new IllegalArgumentException("O artista não pode ser vazio.");
@@ -29,7 +29,7 @@ public class Musica extends Conteudo{
     }
 
     public void setAlbum(String album){
-        this.artista = album;
+        this.album = album;
     }
 
     public int getReproducoes(){
