@@ -29,7 +29,6 @@ public class Conteudo {
         if(titulo == null || titulo.trim().isEmpty()){
             throw new IllegalArgumentException("O título não pode ser vazio.");
         }
-
         this.titulo = titulo;
     }
 
@@ -39,18 +38,23 @@ public class Conteudo {
 
     public void setDuracaoSegundos(int duracaoSegundos){
         if(duracaoSegundos <= 0){
-            throw new IllegalArgumentException("A duração da música deve ser maior que 0. Número digitado: " + duracaoSegundos);
+            throw new IllegalArgumentException("A duração deve ser maior que 0. Número digitado: " + duracaoSegundos);
         }
         this.duracaoSegundos = duracaoSegundos;
     }
 
+    public String getDuracaoFormatada(){
+        int minutos = duracaoSegundos / 60;
+        int segundos = duracaoSegundos % 60;
+        return String.format("%02d:%02d", minutos, segundos);
+    }
+
     public void reproduzir(){
-        System.err.println("Reproduzindo: " + toString());
+        System.out.println("Reproduzindo: " + toString());
     }
 
     @Override 
     public String toString(){
-        return "[" + getId()  + "]" + titulo + "(" + duracaoSegundos + "s)";
+        return "[" + getId() + "] " + titulo + " (" + getDuracaoFormatada() + ")";
     }
-
 }

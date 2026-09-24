@@ -41,11 +41,4 @@ public class Musica extends Conteudo{
         reproducoes ++;
         super.reproduzir();
     }
-
-    public String getDuracaoFormatada(){
-        int minutos = getDuracaoSegundos() / 60;
-        int segundos = getDuracaoSegundos() % 60;
-         
-        return String.format("%02d:%02d", minutos, segundos);
-    }
 }
