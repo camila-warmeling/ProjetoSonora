@@ -1,6 +1,6 @@
 package fase06;
 
-public class Conteudo {
+public abstract class Conteudo {
     
     private static int contador = 0;
     private int id;
@@ -50,11 +50,13 @@ public class Conteudo {
     }
 
     public void reproduzir(){
-        System.out.println("Reproduzindo: " + toString());
+        System.out.println("Reproduzindo: " + getTitulo() + " - " + getCreditos());
     }
 
     @Override 
     public String toString(){
         return "[" + getId() + "] " + titulo + " (" + getDuracaoFormatada() + ")";
     }
+
+    public abstract String getCreditos();
 }
