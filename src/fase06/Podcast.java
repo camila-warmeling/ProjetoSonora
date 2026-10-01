@@ -49,12 +49,6 @@ public class Podcast extends Conteudo {
     }
 
     @Override
-    public void reproduzir() {
-        reproducoes++;
-        super.reproduzir();
-    }
-
-    @Override
     public String toString() {
         return super.toString() + " - " + apresentador + " (Ep. " + numeroEpisodio + ")";
     }

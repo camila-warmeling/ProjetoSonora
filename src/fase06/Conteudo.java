@@ -2,23 +2,20 @@ package fase06;
 
 public abstract class Conteudo {
     
-    private static int contador = 0;
+    private static int contadorId = 0;
     private int id;
     private String titulo;
     private int duracaoSegundos;
+    private int reproducoes = 0; // Subiu para a classe pai
     
     public Conteudo(String titulo, int duracaoSegundos){
-        this.id = ++contador;
+        this.id = ++contadorId;
         setTitulo(titulo);
         setDuracaoSegundos(duracaoSegundos);
     }
 
     public int getId(){
         return id;
-    }
-
-    protected void setId(int id){
-        this.id = id; 
     }
 
     public String getTitulo(){
@@ -38,7 +35,7 @@ public abstract class Conteudo {
 
     public void setDuracaoSegundos(int duracaoSegundos){
         if(duracaoSegundos <= 0){
-            throw new IllegalArgumentException("A duração deve ser maior que 0. Número digitado: " + duracaoSegundos);
+            throw new IllegalArgumentException("A duração deve ser maior que 0.");
         }
         this.duracaoSegundos = duracaoSegundos;
     }
@@ -49,7 +46,12 @@ public abstract class Conteudo {
         return String.format("%02d:%02d", minutos, segundos);
     }
 
-    public void reproduzir(){
+    public int getReproducoes() {
+        return this.reproducoes;
+    }
+    
+    public final void reproduzir(){
+        reproducoes++;
         System.out.println("Reproduzindo: " + getTitulo() + " - " + getCreditos());
     }
 
