@@ -9,7 +9,7 @@ public class Usuario {
     private String nome;
     private String email;
     private ArrayList<Usuario> seguindo;
-    private Plano plano; // Novo: associação com Plano
+    private Plano plano;
 
     public Usuario(String nome, String email){
         if(nome == null || nome.trim().isEmpty()){
