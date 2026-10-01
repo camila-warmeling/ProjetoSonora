@@ -10,6 +10,13 @@ public class App {
     public App(){
         this.plataforma = new Plataforma();
         this.leitor = new Leitor();
+        
+        // --- COMPROVAÇÃO DE RESTRIÇÕES (Partes C e D) ---
+        // Descomentar as linhas abaixo gera erro de compilação conforme exigido pelo professor[cite: 5, 6]:
+        // Conteudo c = new Conteudo("Generico", 120); // Erro: Conteudo é abstrata[cite: 5, 6]
+        // Plano p = new Plano("Generico", 1); // Erro: Plano é abstrata[cite: 5, 6]
+        // class TentativaEstender extends PlanoGratuito {} // Erro: PlanoGratuito é final[cite: 6]
+        
         popularAcervo();
         menu();
     }
@@ -70,6 +77,8 @@ public class App {
             System.out.println("11 - Seguir um usuário");
             System.out.println("12 - Deixar de seguir um usuário");
             System.out.println("13 - Quantidade de pessoas seguindo");
+            System.out.println("14 - Alterar plano de um usuário"); // Parte E[cite: 6]
+            System.out.println("15 - Exibir resumo do plano do usuário"); // Parte E[cite: 6]
             System.out.println("0 - Sair");
 
             opcao = leitor.lerInteiro("Digite a opção:");
@@ -124,6 +133,14 @@ public class App {
 
                 case 13:
                     quantSeguindoUsuarios();
+                    break;
+
+                case 14:
+                    alterarPlanoUsuario();
+                    break;
+
+                case 15:
+                    exibirResumoPlanoUsuario();
                     break;
 
                 case 0:
@@ -195,7 +212,7 @@ public class App {
             boolean sucesso = plataforma.cadastrarUsuario(novoUsuario);
     
             if(sucesso){
-                System.out.println("Usuário cadastrado com sucesso. Id: " + novoUsuario.getId());
+                System.out.println("Usuário cadastrado com sucesso. Id: " + novoUsuario.getId() + " (Plano inicial: Gratuito)");
             }else{
                 System.out.println("Falha ao cadastrar o novo usuário.");
             }
@@ -274,17 +291,16 @@ public class App {
         }else{
             System.out.println(conteudo.toString());
             System.out.println("Duração formatada: " + conteudo.getDuracaoFormatada());
+            System.out.println("Reproduções: " + conteudo.getReproducoes());
             
             if(conteudo instanceof Musica){
                 Musica m = (Musica) conteudo;
                 System.out.println("Artista: " + m.getArtista());
                 System.out.println("Álbum: " + m.getAlbum());
-                System.out.println("Reproduções: " + m.getReproducoes());
             } else if(conteudo instanceof Podcast){
                 Podcast p = (Podcast) conteudo;
                 System.out.println("Apresentador: " + p.getApresentador());
                 System.out.println("Episódio: " + p.getNumeroEpisodio());
-                System.out.println("Reproduções: " + p.getReproducoes());
             }
         }
     }
@@ -300,17 +316,16 @@ public class App {
         }else{
             System.out.println(conteudo.toString());
             System.out.println("Duração formatada: " + conteudo.getDuracaoFormatada());
+            System.out.println("Reproduções: " + conteudo.getReproducoes());
             
             if(conteudo instanceof Musica){
                 Musica m = (Musica) conteudo;
                 System.out.println("Artista: " + m.getArtista());
                 System.out.println("Álbum: " + m.getAlbum());
-                System.out.println("Reproduções: " + m.getReproducoes());
             } else if(conteudo instanceof Podcast){
                 Podcast p = (Podcast) conteudo;
                 System.out.println("Apresentador: " + p.getApresentador());
                 System.out.println("Episódio: " + p.getNumeroEpisodio());
-                System.out.println("Reproduções: " + p.getReproducoes());
             }
         }
     }
@@ -370,7 +385,7 @@ public class App {
         Conteudo conteudoEncontrado = plataforma.buscarConteudo(id);
 
         if(conteudoEncontrado != null){
-            conteudoEncontrado.reproduzir();
+            conteudoEncontrado.reproduzir(); // Incrementa e imprime automaticamente via método final[cite: 6]
         }else{
             System.out.println("Nenhum conteúdo encontrado com o id: " + id);
         }
@@ -381,21 +396,17 @@ public class App {
         if(plataforma.getTotalConteudos() == 0){
             System.out.println("Nenhum conteúdo cadastrado no acervo.");
         }else{
-            // Como os IDs podem não ser sequenciais exatos ou podem ter espaçamentos,
-            // testamos uma varredura por IDs seguros ou exibimos via método genérico.
-            // Aqui buscamos de 1 até o total estimado ou testamos IDs sequenciais.
             for(int i = 1; i <= plataforma.getTotalConteudos() + 20; i++){
                 Conteudo c = plataforma.buscarConteudo(i);
                 if(c != null){
-                    System.out.println("ID: " + c.getId() + " | " + c.toString() + " | Duração: " + c.getDuracaoFormatada());
+                    System.out.println("ID: " + c.getId() + " | " + c.toString() + " | Reproduções: " + c.getReproducoes());
                 }
             }
         }
     }
 
- private Usuario pesquisarUsuario(String mensagemPersonalizada){
+    private Usuario pesquisarUsuario(String mensagemPersonalizada){
         int idUsuario = leitor.lerInteiro(mensagemPersonalizada);
-        
         try{
             Usuario usuario = plataforma.buscarUsuario(idUsuario);
             return usuario;
@@ -455,6 +466,57 @@ public class App {
         }else{
             System.out.println("A quantidade de usuários sendo seguidos por " + usuarioConta.getNome() + " é: " + usuarioConta.getQuantidadeSeguindo());
         }
+    }
+
+    private void alterarPlanoUsuario(){
+        System.out.println("\n ----- Alterar Plano do Usuário -----");
+        Usuario usuario = pesquisarUsuario("Digite o ID do usuário:");
+        if(usuario == null){
+            System.out.println("Usuário não encontrado.");
+            return;
+        }
+
+        System.out.println("Escolha o novo plano:");
+        System.out.println("1 - Plano Gratuito");
+        System.out.println("2 - Plano Individual (Pago)");
+        System.out.println("3 - Plano Família (Pago)");
+        int escolha = leitor.lerInteiro("Opção:");
+
+        try {
+            Plano novoPlano = null;
+            if(escolha == 1){
+                novoPlano = new PlanoGratuito();
+            }else if(escolha == 2){
+                double preco = leitor.lerDouble("Digite o preço mensal do plano individual:");
+                novoPlano = new PlanoIndividual(preco);
+            }else if(escolha == 3){
+                double preco = leitor.lerDouble("Digite o preço base mensal do plano família:");
+                int membros = leitor.lerInteiro("Digite a quantidade de membros (1 a 6):");
+                novoPlano = new PlanoFamilia(preco, membros);
+            }else{
+                System.out.println("Opção de plano inválida.");
+                return;
+            }
+
+            usuario.assinar(novoPlano);
+            System.out.println("Plano alterado com sucesso para " + usuario.getPlano().getNome() + "!");
+        } catch (IllegalArgumentException e) {
+            System.out.println("Erro ao assinar plano: " + e.getMessage());
+        }
+    }
+
+    private void exibirResumoPlanoUsuario(){
+        System.out.println("\n ----- Resumo do Plano do Usuário -----");
+        Usuario usuario = pesquisarUsuario("Digite o ID do usuário:");
+        if(usuario == null){
+            System.out.println("Usuário não encontrado.");
+            return;
+        }
+
+        System.out.println("Usuário: " + usuario.getNome());
+        System.out.println("Plano Atual -> " + usuario.getPlano().resumo()); 
+        //operador ternário - condicao ? verdadeiro : falso
+        System.out.println("Exibe Anúncios? " + (usuario.getPlano().temAnuncios() ? "Sim" : "Não"));
     }
     
     public static void main(String[] args) {
