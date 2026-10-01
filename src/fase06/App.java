@@ -516,7 +516,7 @@ public class App {
         System.out.println("Usuário: " + usuario.getNome());
         System.out.println("Plano Atual -> " + usuario.getPlano().resumo()); 
         //operador ternário - condicao ? verdadeiro : falso
-        System.out.println("Exibe Anúncios? " + (usuario.getPlano().temAnuncios() ? "Sim" : "Não"));
+        System.out.println("Possui Anúncios - " + (usuario.getPlano().temAnuncios() ? "Sim" : "Não"));
     }
     
     public static void main(String[] args) {
