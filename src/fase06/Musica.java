@@ -4,7 +4,6 @@ public class Musica extends Conteudo {
 
     private String artista;
     private String album;
-    private int reproducoes = 0;
 
     public Musica(String titulo, String artista, String album, int duracaoSegundos) {
         super(titulo, duracaoSegundos);
@@ -29,10 +28,6 @@ public class Musica extends Conteudo {
 
     public void setAlbum(String album) {
         this.album = album;
-    }
-
-    public int getReproducoes() {
-        return this.reproducoes;
     }
 
     @Override

@@ -4,7 +4,6 @@ public class Podcast extends Conteudo {
 
     private String apresentador;
     private int numeroEpisodio;
-    private int reproducoes = 0;
 
     public Podcast(String titulo, String apresentador, int numeroEpisodio, int duracaoSegundos) {
         super(titulo, duracaoSegundos);
@@ -42,10 +41,6 @@ public class Podcast extends Conteudo {
                     "O número do episódio deve ser maior ou igual a 1. Número digitado: " + numeroEpisodio);
         }
         this.numeroEpisodio = numeroEpisodio;
-    }
-
-    public int getReproducoes() {
-        return this.reproducoes;
     }
 
     @Override
