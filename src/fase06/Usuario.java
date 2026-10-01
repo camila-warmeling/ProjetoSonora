@@ -9,6 +9,7 @@ public class Usuario {
     private String nome;
     private String email;
     private ArrayList<Usuario> seguindo;
+    private Plano plano; // Novo: associação com Plano
 
     public Usuario(String nome, String email){
         if(nome == null || nome.trim().isEmpty()){
@@ -21,6 +22,7 @@ public class Usuario {
         this.nome = nome;
         this.email = email;
         this.seguindo = new ArrayList<>();
+        this.plano = new PlanoGratuito(); // Todo usuário recém-criado começa no plano gratuito[cite: 6]
     
         setId();
     }
@@ -42,6 +44,17 @@ public class Usuario {
         return this.email;
     }
 
+    public Plano getPlano() {
+        return plano;
+    }
+
+    public void assinar(Plano novoPlano) {
+        if (novoPlano == null) {
+            throw new IllegalArgumentException("O plano não pode ser nulo.");
+        }
+        this.plano = novoPlano;
+    }
+
     public void seguir(Usuario outro){
         if(outro == null){
             throw new IllegalArgumentException("O usuário que vai ser seguido não pode ser nulo.");
@@ -55,7 +68,7 @@ public class Usuario {
 
     public void deixarDeSeguir(Usuario outro){
         if(!this.seguindo.contains(outro)){
-            throw new IllegalArgumentException("Este usuário não está sendo seguindo.");
+            throw new IllegalArgumentException("Este usuário não está sendo seguido.");
         }
         seguindo.remove(outro);
     }
