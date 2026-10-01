@@ -5,24 +5,37 @@ import java.util.Scanner;
 public class Leitor {
     private Scanner scanner;
 
-    public Leitor(){
+    public Leitor() {
         this.scanner = new Scanner(System.in);
     }
 
-    public String lerTexto(String mensagem){
+    public String lerTexto(String mensagem) {
         System.out.println(mensagem);
         return scanner.nextLine();
     }
 
-    public int lerInteiro(String mensagem){
-        while(true){
+    public int lerInteiro(String mensagem) {
+        while (true) {
             System.out.println(mensagem);
-            try{ //se for possível fazer a conversão o while acaba.
-                return Integer.parseInt(scanner.nextLine()); 
-            }catch(NumberFormatException e){
+            try { // se for possível fazer a conversão o while acaba.
+                return Integer.parseInt(scanner.nextLine());
+            } catch (NumberFormatException e) {
                 System.out.println("Número inválido. Digite um número inteiro.");
-            }catch(Exception e){
+            } catch (Exception e) {
                 System.out.println("Número inválido. Digite somente números inteiros.");
+            }
+        }
+    }
+
+    public double lerDouble(String mensagem) {
+        while (true) {
+            System.out.println(mensagem);
+            try { 
+                return Double.parseDouble(scanner.nextLine());
+            } catch (NumberFormatException e) {
+                System.out.println("Valor inválido. Digite um número decimal válido (ex: 19.90).");
+            } catch (Exception e) {
+                System.out.println("Erro inesperado. Digite somente números.");
             }
         }
     }
