@@ -2,9 +2,9 @@ package fase07;
 
 import java.util.ArrayList;
 
-public class Playlist {
+public class Playlist{
 
-    private ArrayList<Musica> playlist = new ArrayList<>();
+    private ArrayList<Conteudo> playlist = new ArrayList<>();
     private String nome;
     private Usuario dono; 
 
@@ -26,19 +26,19 @@ public class Playlist {
         return this.dono;
     }
 
-    public int getQuantidadeMusicas(){
+    public int getQuantidadeConteudo(){
         return this.playlist.size();
     }
 
-    public boolean adicionarMusica(Musica musica){
-        if(musica == null){
+    public boolean adicionarConteudo(Conteudo conteudo){
+        if(conteudo == null){
             throw new IllegalArgumentException("Não é possível adicionar uma música em branco.");
         }
-        playlist.add(musica);
+        playlist.add(conteudo);
         return true;
     }
 
-    public Musica getMusicaNaPosicao(int indice){
+    public Conteudo getConteudoNaPosicao(int indice){
         if(indice < 0 || indice > 99){
             throw new IndexOutOfBoundsException("Os indices devem estar presentes no intervalo de 0 a 99.");
         }else if(indice >= this.playlist.size()){
@@ -47,7 +47,7 @@ public class Playlist {
         return this.playlist.get(indice);
     }
 
-    public void removerMusicaNaPosicao(int indice){
+    public void removerConteudoNaPosicao(int indice){
         if(indice < 0 || indice > 99){
             throw new IndexOutOfBoundsException("Os indices devem estar presentes no intervalo de 0 a 99.");
         }else if(indice >= this.playlist.size()){
