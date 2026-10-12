@@ -12,13 +12,16 @@ public class App {
         this.leitor = new Leitor();
 
         Conteudo c = new Podcast("Piloto", "Camila", 1, 120);
-        //Conteudo - tipo estático
-        //Podcast - tipo dinâmico
-        
-        //c.getApresentador();
-        /* A linha acima não compila pois é verificado primeiramente o tipo estático (Conteúdo), para depois
-        verificar o tipo dinâmico. Nesse caso, getApresentador não existe em Conteudo, por isso o erro.
-        */
+        // Conteudo - tipo estático
+        // Podcast - tipo dinâmico
+
+        // c.getApresentador();
+        /*
+         * A linha acima não compila pois é verificado primeiramente o tipo estático
+         * (Conteúdo), para depois
+         * verificar o tipo dinâmico. Nesse caso, getApresentador não existe em
+         * Conteudo, por isso o erro.
+         */
 
         popularAcervo();
         menu();
@@ -33,16 +36,6 @@ public class App {
                 new Musica("Hotel California", "Eagles", "Hotel California", 390),
                 new Musica("Billie Jean", "Michael Jackson", "Thriller", 294),
                 new Musica("Short Song", "Test Band", "Test Album", 65),
-                new Musica("Long Symphony", "Orchestra", "Classic", 600),
-                new Musica("Smells Like Teen Spirit", "Nirvana", "Nevermind", 301),
-                new Musica("Shape of You", "Ed Sheeran", "Divide", 233),
-                new Musica("Blinding Lights", "The Weeknd", "After Hours", 200),
-                new Musica("Take On Me", "a-ha", "Hunting High and Low", 225),
-                new Musica("Wonderwall", "Oasis", "(What's the Story) Morning Glory?", 258),
-                new Musica("Sweet Child O' Mine", "Guns N' Roses", "Appetite for Destruction", 356),
-                new Musica("Californication", "Red Hot Chili Peppers", "Californication", 321),
-                new Musica("In the End", "Linkin Park", "Hybrid Theory", 216),
-                new Musica("Fast Track", "Quick Band", "Single", 45)
         };
 
         for (Musica m : bancoDeTestesMusicas) {
@@ -51,7 +44,8 @@ public class App {
 
         Podcast[] bancoDeTestesPodcasts = new Podcast[] {
                 new Podcast("Tech Cast", "João Silva", 1, 1800),
-                new Podcast("História em Pauta", "Maria Souza", 12, 2400)
+                new Podcast("História em Pauta", "Maria Souza", 12, 2400),
+                new Podcast("Tech Cast 2", "João Silva", 2, 1800)
         };
 
         for (Podcast p : bancoDeTestesPodcasts) {
@@ -81,8 +75,9 @@ public class App {
             System.out.println("12 - Deixar de seguir um usuário");
             System.out.println("13 - Quantidade de pessoas seguindo");
             System.out.println("14 - Alterar plano de um usuário");
-            System.out.println("15 - Exibir resumo do plano do usuário"); 
+            System.out.println("15 - Exibir resumo do plano do usuário");
             System.err.println("16 - Exibir receita mensal da plataforma");
+            System.out.println("17 - Listar podcasts do apresentador");
             System.out.println("0 - Sair");
 
             opcao = leitor.lerInteiro("Digite a opção:");
@@ -149,6 +144,10 @@ public class App {
 
                 case 16:
                     exibirReceitaMensalPlataforma();
+                    break;
+
+                case 17:
+                    listarPodcastDoApresentador();
                     break;
 
                 case 0:
@@ -299,11 +298,11 @@ public class App {
             System.out.println("Duração formatada: " + conteudo.getDuracaoFormatada());
             System.out.println("Reproduções: " + conteudo.getReproducoes());
 
-            if(conteudo instanceof Musica){
+            if (conteudo instanceof Musica) {
                 Musica m = (Musica) conteudo;
                 System.out.println("Artista: " + m.getArtista());
                 System.out.println("Álbum: " + m.getAlbum());
-            }else if(conteudo instanceof Podcast){
+            } else if (conteudo instanceof Podcast) {
                 Podcast p = (Podcast) conteudo;
                 System.out.println("Apresentador: " + p.getApresentador());
                 System.out.println("Episódio: " + p.getNumeroEpisodio());
@@ -399,7 +398,7 @@ public class App {
         if (plataforma.getTotalConteudos() == 0) {
             System.out.println("Nenhum conteúdo cadastrado no acervo.");
         } else {
-            for (int i = 1; i <= plataforma.getTotalConteudos() + 20; i++) {
+            for (int i = 1; i <= plataforma.getTotalConteudos(); i++) {
                 Conteudo c = plataforma.buscarConteudo(i);
                 if (c != null) {
                     System.out.println(
@@ -524,8 +523,14 @@ public class App {
         System.out.println("Possui Anúncios - " + (usuario.getPlano().temAnuncios() ? "Sim" : "Não"));
     }
 
-    private void exibirReceitaMensalPlataforma(){
-        System.out.println("A receita mensal da plataforma é: R$" + String.format("%.2f", plataforma.calcularReceitaMensal()));
+    private void exibirReceitaMensalPlataforma() {
+        System.out.println(
+                "A receita mensal da plataforma é: R$" + String.format("%.2f", plataforma.calcularReceitaMensal()));
+    }
+
+    private void listarPodcastDoApresentador() {
+        String apresentador = leitor.lerTexto("Digite o nome do apresentador que deseja mostrar os podcasts: ");
+        plataforma.listarEpisodiosDe(apresentador);
     }
 
     public static void main(String[] args) {
