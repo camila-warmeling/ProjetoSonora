@@ -5,8 +5,9 @@ public class Anuncio {
     private String anunciante;
     private String titulo;
     private int duracaoSegundos;
-    private int valorPorMilImpressoes;
     private int impressoes = 0;
+    private double valorPorMilImpressoes;
+    private double valorVeiculacao;
 
     public Anuncio(String anunciante, String titulo, int duracaoSegundos, double valorPorMilImpressoes){
         setAnunciante(anunciante);
@@ -64,6 +65,11 @@ public class Anuncio {
     public void reproduzir(){
         impressoes ++;
         System.out.printf("[Anuncio] %s - um oferecimento de %s" + titulo, anunciante);
+    }
+
+    public double calcularValorVeiculacao(){
+        valorVeiculacao = this.impressoes / 1000.0 * this.valorPorMilImpressoes;
+        return valorVeiculacao;
     }
 
 }
