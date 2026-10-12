@@ -1,98 +1,108 @@
 package fase07;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Plataforma {
-    private ArrayList<Conteudo> acervoConteudos = new ArrayList<>(); 
-    private ArrayList<Usuario> acervoUsuarios = new ArrayList<>();
-    private ArrayList<Anuncio> acervoAnuncios = new ArrayList<>();
+    private ArrayList<Conteudo> acervoConteudos = new ArrayList<>();
+    private ArrayList<Usuario> listaUsuarios = new ArrayList<>();
+    private ArrayList<Anuncio> anunciosCadastrados = new ArrayList<>();
 
-    public boolean cadastrarConteudo(Conteudo conteudo){ 
-        if(conteudo == null){
+    public boolean cadastrarConteudo(Conteudo conteudo) {
+        if (conteudo == null) {
             throw new IllegalArgumentException("Não é possível criar um conteúdo vazio.");
         }
-        this.acervoConteudos.add(conteudo);  
+        this.acervoConteudos.add(conteudo);
         return true;
     }
 
-    public boolean cadastrarUsuario(Usuario usuario){
-        if(usuario == null){
+    public boolean cadastrarUsuario(Usuario usuario) {
+        if (usuario == null) {
             throw new IllegalArgumentException("Não é possível criar um usuário vazio.");
         }
-        this.acervoUsuarios.add(usuario);
+        this.listaUsuarios.add(usuario);
         return true;
     }
 
-    public boolean cadastrarAnuncio(Anuncio anuncio){
-        if(anuncio == null){
+    public boolean cadastrarAnuncio(Anuncio anuncio) {
+        if (anuncio == null) {
             throw new IllegalArgumentException("Não é possível criar um anúncio vazio.");
         }
-        this.acervoAnuncios.add(anuncio);
+        this.anunciosCadastrados.add(anuncio);
         return true;
     }
 
-    public Conteudo buscarConteudo(int id){ 
-        for(int i=0; i<acervoConteudos.size(); i++){
-            if(this.acervoConteudos.get(i).getId() == id){
+    public Conteudo buscarConteudo(int id) {
+        for (int i = 0; i < acervoConteudos.size(); i++) {
+            if (this.acervoConteudos.get(i).getId() == id) {
                 return this.acervoConteudos.get(i);
             }
         }
         return null;
     }
 
-    public Conteudo buscarConteudo(String titulo){ 
-        for(int i=0; i<this.acervoConteudos.size(); i++){
-            if(this.acervoConteudos.get(i).getTitulo().equalsIgnoreCase(titulo)){
+    public Conteudo buscarConteudo(String titulo) {
+        for (int i = 0; i < this.acervoConteudos.size(); i++) {
+            if (this.acervoConteudos.get(i).getTitulo().equalsIgnoreCase(titulo)) {
                 return this.acervoConteudos.get(i);
             }
         }
         return null;
     }
 
-    public Usuario buscarUsuario(int id){
-        if(this.acervoUsuarios.size() == 0){
+    public Usuario buscarUsuario(int id) {
+        if (this.listaUsuarios.size() == 0) {
             throw new IllegalStateException("Não foi criado nenhum usuário ainda.");
         }
-        for(int i=0; i<this.acervoUsuarios.size(); i++){
-            if(this.acervoUsuarios.get(i).getId() == id){
-                return this.acervoUsuarios.get(i);
+        for (int i = 0; i < this.listaUsuarios.size(); i++) {
+            if (this.listaUsuarios.get(i).getId() == id) {
+                return this.listaUsuarios.get(i);
             }
         }
         return null;
     }
-    
-    public int getTotalConteudos(){ 
+
+    public int getTotalConteudos() {
         return this.acervoConteudos.size();
     }
 
-    public int getTotalUsuarios(){
-        return this.acervoUsuarios.size();
+    public int getTotalUsuarios() {
+        return this.listaUsuarios.size();
     }
 
-    public double calcularReceitaMensal(){
-        double valorReceita = 0;
+    public double calcularReceitaMensal() {
+        List<Faturavel> faturaveis = new ArrayList<>();
 
-        for(Usuario usuario : acervoUsuarios){
-            valorReceita += usuario.getPlano().calcularMensalidade();
+        for (Usuario usuario : listaUsuarios) {
+            if (usuario.getPlano() != null) {
+                faturaveis.add(usuario.getPlano());
+            }
         }
         
-        return valorReceita;
+        faturaveis.addAll(anunciosCadastrados);
+
+        double total = 0.0;
+        for (Faturavel item : faturaveis) {
+            total += item.calcularMensalidade();
+        }
+
+        return total;
     }
 
-    public void listarEpisodiosDe(String apresentador){
+    public void listarEpisodiosDe(String apresentador) {
         boolean encontrouApresentador = false;
 
-        for(Conteudo conteudo : acervoConteudos){
-            if(conteudo instanceof Podcast){
-                //downcasting (descer um nível) - sai do tipo genérico para um específico
-                if(((Podcast)conteudo).getApresentador().equalsIgnoreCase(apresentador)){
+        for (Conteudo conteudo : acervoConteudos) {
+            if (conteudo instanceof Podcast) {
+                // downcasting (descer um nível) - sai do tipo genérico para um específico
+                if (((Podcast) conteudo).getApresentador().equalsIgnoreCase(apresentador)) {
                     System.out.println(conteudo.toString());
                     encontrouApresentador = true;
                 }
             }
-        }  
-        
-        if(encontrouApresentador == false){
+        }
+
+        if (encontrouApresentador == false) {
             System.out.println("Não foi possível encontrar nenhum podcast com o apresentador: " + apresentador);
         }
     }
