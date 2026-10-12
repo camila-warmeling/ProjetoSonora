@@ -1,6 +1,6 @@
 package fase07;
 
-public class Anuncio implements GeradorDeReceita{
+public class Anuncio implements Faturavel{
 
     private String anunciante;
     private String titulo;
@@ -13,7 +13,7 @@ public class Anuncio implements GeradorDeReceita{
         setAnunciante(anunciante);
         setTitulo(titulo);
         setDuracaoSegundos(duracaoSegundos);
-        setValorPorMilImpressoes(duracaoSegundos);
+        setValorPorMilImpressoes(valorPorMilImpressoes);
     }
 
     public String getAnunciante(){
@@ -70,7 +70,7 @@ public class Anuncio implements GeradorDeReceita{
     }
 
     @Override 
-    public double calcularReceita(){
+    public double calcularMensalidade(){
         valorVeiculacao = this.impressoes / 1000.0 * this.valorPorMilImpressoes;
         return valorVeiculacao;
     }

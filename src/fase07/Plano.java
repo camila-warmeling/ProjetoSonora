@@ -1,6 +1,6 @@
 package fase07;
 
-public abstract class Plano implements GeradorDeReceita{
+public abstract class Plano implements Faturavel{
 
     private String nome;
     private int maxDispositivos;
@@ -25,11 +25,8 @@ public abstract class Plano implements GeradorDeReceita{
 
     public abstract boolean temAnuncios();
 
-    @Override 
-    public abstract double calcularReceita();
-
     public String resumo() {
-        return nome + ": R$ " + calcularReceita()
+        return nome + ": R$ " + calcularMensalidade()
                 + " por mes, " + maxDispositivos + " dispositivo(s)";
     }
 }

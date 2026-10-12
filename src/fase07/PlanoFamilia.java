@@ -9,12 +9,9 @@ public class PlanoFamilia extends PlanoPago{
         setQuantidadeMembros(quantidadeMembros);
     }
 
-
-  
     public int getQuantidadeMembros() {
         return quantidadeMembros;
     }
-
 
     public void setQuantidadeMembros(int quantidadeMembros) {
         if (quantidadeMembros < 1 || quantidadeMembros > 6) {
