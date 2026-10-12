@@ -76,7 +76,7 @@ public class Plataforma {
         for(Conteudo conteudo : acervoConteudos){
             if(conteudo instanceof Podcast){
                 //downcasting (descer um nível) - sai do tipo genérico para um específico
-                if(((Podcast)conteudo).getApresentador().equals(apresentador)){
+                if(((Podcast)conteudo).getApresentador().equalsIgnoreCase(apresentador)){
                     System.out.println(conteudo.toString());
                     encontrouApresentador = true;
                 }
