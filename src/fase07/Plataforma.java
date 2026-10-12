@@ -78,7 +78,7 @@ public class Plataforma {
                 faturaveis.add(usuario.getPlano());
             }
         }
-        
+
         faturaveis.addAll(anunciosCadastrados);
 
         double total = 0.0;
@@ -104,6 +104,35 @@ public class Plataforma {
 
         if (encontrouApresentador == false) {
             System.out.println("Não foi possível encontrar nenhum podcast com o apresentador: " + apresentador);
+        }
+    }
+
+    public void tocarPlaylist(Usuario ouvinte, Playlist playlist) {
+        ArrayList<Reproduzivel> fila = new ArrayList<>();
+
+        boolean deveTerAnuncios = ouvinte.getPlano() != null && ouvinte.getPlano().temAnuncios() && !anunciosCadastrados.isEmpty();
+
+        int contadorItens = 0;
+        int indiceAnuncio = 0;
+
+        for (int i = 0; i < playlist.getQuantidadeConteudo(); i++){
+            Conteudo conteudo = playlist.getConteudoNaPosicao(i);
+            fila.add(conteudo);
+            contadorItens++;
+
+            if(deveTerAnuncios && contadorItens % 2 == 0){
+                Anuncio anuncioAtual = anunciosCadastrados.get(indiceAnuncio);
+                fila.add(anuncioAtual);
+
+                //quando a conta chega a 0 é porque a qauntidade de anuncios acabou e deve voltar ao inicio da lista
+                indiceAnuncio = (indiceAnuncio + 1) % anunciosCadastrados.size();
+            }
+        }
+
+        for(Reproduzivel item : fila){
+            System.out.println("Duração: " + item.getDuracaoFormatada());
+            item.reproduzir();
+            System.out.println("-----------------------------------");
         }
     }
 }
