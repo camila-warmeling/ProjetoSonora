@@ -71,8 +71,9 @@ public class App {
             System.out.println("11 - Seguir um usuário");
             System.out.println("12 - Deixar de seguir um usuário");
             System.out.println("13 - Quantidade de pessoas seguindo");
-            System.out.println("14 - Alterar plano de um usuário"); // Parte E[cite: 6]
-            System.out.println("15 - Exibir resumo do plano do usuário"); // Parte E[cite: 6]
+            System.out.println("14 - Alterar plano de um usuário");
+            System.out.println("15 - Exibir resumo do plano do usuário"); 
+            System.err.println("16 - Exibir receita mensal da plataforma");
             System.out.println("0 - Sair");
 
             opcao = leitor.lerInteiro("Digite a opção:");
@@ -135,6 +136,10 @@ public class App {
 
                 case 15:
                     exibirResumoPlanoUsuario();
+                    break;
+
+                case 16:
+                    exibirReceitaMensalPlataforma();
                     break;
 
                 case 0:
@@ -285,11 +290,11 @@ public class App {
             System.out.println("Duração formatada: " + conteudo.getDuracaoFormatada());
             System.out.println("Reproduções: " + conteudo.getReproducoes());
 
-            if (conteudo instanceof Musica) {
+            if(conteudo instanceof Musica){
                 Musica m = (Musica) conteudo;
                 System.out.println("Artista: " + m.getArtista());
                 System.out.println("Álbum: " + m.getAlbum());
-            } else if (conteudo instanceof Podcast) {
+            }else if(conteudo instanceof Podcast){
                 Podcast p = (Podcast) conteudo;
                 System.out.println("Apresentador: " + p.getApresentador());
                 System.out.println("Episódio: " + p.getNumeroEpisodio());
@@ -508,6 +513,10 @@ public class App {
         System.out.println("Plano Atual -> " + usuario.getPlano().resumo());
         // operador ternário - condicao ? verdadeiro : falso
         System.out.println("Possui Anúncios - " + (usuario.getPlano().temAnuncios() ? "Sim" : "Não"));
+    }
+
+    private void exibirReceitaMensalPlataforma(){
+        System.out.println("A receita mensal da plataforma é: R$" + String.format("%.2f", plataforma.calcularReceitaMensal()));
     }
 
     public static void main(String[] args) {
