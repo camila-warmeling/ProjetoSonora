@@ -69,4 +69,22 @@ public class Plataforma {
         
         return valorReceita;
     }
+
+    public void listarEpisodiosDe(String apresentador){
+        boolean encontrouApresentador = false;
+
+        for(Conteudo conteudo : acervoConteudos){
+            if(conteudo instanceof Podcast){
+                //downcasting (descer um nível) - sai do tipo genérico para um específico
+                if(((Podcast)conteudo).getApresentador().equals(apresentador)){
+                    System.out.println(conteudo.toString());
+                    encontrouApresentador = true;
+                }
+            }
+        }  
+        
+        if(encontrouApresentador == false){
+            System.out.println("Não foi possível encontrar nenhum podcast com o apresentador: " + apresentador);
+        }
+    }
 }
