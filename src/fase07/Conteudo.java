@@ -40,12 +40,6 @@ public abstract class Conteudo implements Reproduzivel{
         this.duracaoSegundos = duracaoSegundos;
     }
 
-    public String getDuracaoFormatada(){
-        int minutos = duracaoSegundos / 60;
-        int segundos = duracaoSegundos % 60;
-        return String.format("%02d:%02d", minutos, segundos);
-    }
-
     public int getReproducoes() {
         return this.reproducoes;
     }
