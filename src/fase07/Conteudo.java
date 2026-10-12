@@ -1,6 +1,6 @@
 package fase07;
 
-public abstract class Conteudo {
+public abstract class Conteudo implements Reproduzivel{
     
     private static int contadorId = 0;
     private int id;

@@ -1,6 +1,6 @@
 package fase07;
 
-public class Anuncio implements Faturavel{
+public class Anuncio implements Faturavel, Reproduzivel{
 
     private String anunciante;
     private String titulo;
