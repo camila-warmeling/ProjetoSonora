@@ -5,6 +5,7 @@ import java.util.ArrayList;
 public class Plataforma {
     private ArrayList<Conteudo> acervoConteudos = new ArrayList<>(); 
     private ArrayList<Usuario> acervoUsuarios = new ArrayList<>();
+    private ArrayList<Anuncio> acervoAnuncios = new ArrayList<>();
 
     public boolean cadastrarConteudo(Conteudo conteudo){ 
         if(conteudo == null){
@@ -19,6 +20,14 @@ public class Plataforma {
             throw new IllegalArgumentException("Não é possível criar um usuário vazio.");
         }
         this.acervoUsuarios.add(usuario);
+        return true;
+    }
+
+    public boolean cadastrarAnuncio(Anuncio anuncio){
+        if(anuncio == null){
+            throw new IllegalArgumentException("Não é possível criar um anúncio vazio.");
+        }
+        this.acervoAnuncios.add(anuncio);
         return true;
     }
 
