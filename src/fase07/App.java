@@ -11,6 +11,15 @@ public class App {
         this.plataforma = new Plataforma();
         this.leitor = new Leitor();
 
+        Conteudo c = new Podcast("Piloto", "Camila", 1, 120);
+        //Conteudo - tipo estático
+        //Podcast - tipo dinâmico
+        
+        //c.getApresentador();
+        /* A linha acima não compila pois é verificado primeiramente o tipo estático (Conteúdo), para depois
+        verificar o tipo dinâmico. Nesse caso, getApresentador não existe em Conteudo, por isso o erro.
+        */
+
         popularAcervo();
         menu();
     }
