@@ -1,6 +1,6 @@
 package fase07;
 
-public class Anuncio {
+public class Anuncio implements GeradorDeReceita{
 
     private String anunciante;
     private String titulo;
@@ -12,6 +12,8 @@ public class Anuncio {
     public Anuncio(String anunciante, String titulo, int duracaoSegundos, double valorPorMilImpressoes){
         setAnunciante(anunciante);
         setTitulo(titulo);
+        setDuracaoSegundos(duracaoSegundos);
+        setValorPorMilImpressoes(duracaoSegundos);
     }
 
     public String getAnunciante(){
@@ -51,7 +53,7 @@ public class Anuncio {
         return this.valorPorMilImpressoes;
     }
 
-    public void setValorPorMilImpressoes(int valorPorMilImpressoes){
+    public void setValorPorMilImpressoes(double valorPorMilImpressoes){
         if(valorPorMilImpressoes <= 0){
             throw new IllegalArgumentException("O valor por mil impressões deve ser maior que 0.");
         }
@@ -64,10 +66,11 @@ public class Anuncio {
 
     public void reproduzir(){
         impressoes ++;
-        System.out.printf("[Anuncio] %s - um oferecimento de %s" + titulo, anunciante);
+        System.out.printf("[Anuncio] %s - um oferecimento de %s", titulo, anunciante);
     }
 
-    public double calcularValorVeiculacao(){
+    @Override 
+    public double calcularReceita(){
         valorVeiculacao = this.impressoes / 1000.0 * this.valorPorMilImpressoes;
         return valorVeiculacao;
     }

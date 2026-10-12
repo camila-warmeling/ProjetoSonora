@@ -1,6 +1,6 @@
 package fase07;
 
-public abstract class Plano {
+public abstract class Plano implements GeradorDeReceita{
 
     private String nome;
     private int maxDispositivos;
@@ -25,10 +25,11 @@ public abstract class Plano {
 
     public abstract boolean temAnuncios();
 
-    public abstract double calcularMensalidade();
+    @Override 
+    public abstract double calcularReceita();
 
     public String resumo() {
-        return nome + ": R$ " + calcularMensalidade()
+        return nome + ": R$ " + calcularReceita()
                 + " por mes, " + maxDispositivos + " dispositivo(s)";
     }
 }
