@@ -67,7 +67,7 @@ public class Anuncio implements Faturavel, Reproduzivel{
     @Override 
     public void reproduzir(){
         impressoes ++;
-        System.out.printf("[Anuncio] %s - um oferecimento de %s", titulo, anunciante);
+        System.out.printf("[Anuncio] %s - um oferecimento de %s \n", titulo, anunciante);
     }
 
     @Override 
