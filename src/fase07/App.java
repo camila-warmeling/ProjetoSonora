@@ -17,13 +17,13 @@ public class App {
 
         // c.getApresentador();
         /*
-         * A linha acima não compila pois é verificado primeiramente o tipo estático
-         * (Conteúdo), para depois
-         * verificar o tipo dinâmico. Nesse caso, getApresentador não existe em
-         * Conteudo, por isso o erro.
-         */
+        - A linha acima não compila pois é verificado primeiramente o tipo estático
+        - (Conteúdo), para depois verificar o tipo dinâmico. Nesse caso, getApresentador 
+        - não existe em Conteúdo, por isso ocorre o erro de compilação.
+        */
 
         popularAcervo();
+        popularAnunciosIniciais();
         menu();
     }
 
@@ -55,6 +55,15 @@ public class App {
         System.out.println("Acervo populado com sucesso!");
     }
 
+    private void popularAnunciosIniciais() {
+        try {
+            plataforma.cadastrarAnuncio(new Anuncio("Torrefacao Serrana", "Cafe da Serra", 30, 15.0));
+            plataforma.cadastrarAnuncio(new Anuncio("Tech Store", "Smartphone X", 30, 20.0));
+        } catch (Exception e) {
+            // Ignora se houver erro nos dados de teste predefinidos
+        }
+    }
+
     private void menu() {
         boolean continuar = true;
         int opcao;
@@ -64,11 +73,11 @@ public class App {
             System.out.println("1 - Cadastrar música manualmente");
             System.out.println("2 - Cadastrar podcast manualmente");
             System.out.println("3 - Cadastrar usuário");
-            System.out.println("4 - Criar playlist e adicionar músicas");
+            System.out.println("4 - Criar playlist e adicionar conteúdos");
             System.out.println("5 - Buscar conteúdo por id");
             System.out.println("6 - Buscar conteúdo por título");
-            System.out.println("7 - Remover uma música da playlist");
-            System.out.println("8 - Pesquisar música da playlist");
+            System.out.println("7 - Remover um conteúdo da playlist");
+            System.out.println("8 - Pesquisar conteúdo da playlist");
             System.out.println("9 - Reproduzir um conteúdo");
             System.out.println("10 - Listar acervo completo");
             System.out.println("11 - Seguir um usuário");
@@ -76,8 +85,10 @@ public class App {
             System.out.println("13 - Quantidade de pessoas seguindo");
             System.out.println("14 - Alterar plano de um usuário");
             System.out.println("15 - Exibir resumo do plano do usuário");
-            System.err.println("16 - Exibir receita mensal da plataforma");
+            System.out.println("16 - Exibir receita mensal da plataforma");
             System.out.println("17 - Listar podcasts do apresentador");
+            System.out.println("18 - Cadastrar anúncio");
+            System.out.println("19 - Tocar playlist");
             System.out.println("0 - Sair");
 
             opcao = leitor.lerInteiro("Digite a opção:");
@@ -85,78 +96,66 @@ public class App {
                 case 1:
                     cadastrarMusicaManualmente();
                     break;
-
                 case 2:
                     cadastrarPodcastManualmente();
                     break;
-
                 case 3:
                     cadastrarUsuario();
                     break;
-
                 case 4:
                     criarPlaylist();
                     break;
-
                 case 5:
                     buscarConteudoId();
                     break;
-
                 case 6:
                     buscarConteudoPorTitulo();
                     break;
-
                 case 7:
                     removerConteudoPlaylist();
                     break;
-
                 case 8:
                     pesquisarConteudoPlaylist();
                     break;
-
                 case 9:
                     reproduzirConteudo();
                     break;
-
                 case 10:
                     listarAcervoConteudo();
                     break;
-
                 case 11:
                     seguirOutroUsuario();
                     break;
-
                 case 12:
                     deixarDeSeguirOutroUsuario();
                     break;
-
                 case 13:
                     quantSeguindoUsuarios();
                     break;
-
                 case 14:
                     alterarPlanoUsuario();
                     break;
-
                 case 15:
                     exibirResumoPlanoUsuario();
                     break;
-
                 case 16:
                     exibirReceitaMensalPlataforma();
                     break;
-
                 case 17:
                     listarPodcastDoApresentador();
                     break;
-
+                case 18:
+                    cadastrarAnuncioManualmente();
+                    break;
+                case 19:
+                    tocarPlaylistParaUsuario();
+                    break;
                 case 0:
-                    System.out.println("Até a próxima!");
+                    System.out.println("Até à próxima!");
                     continuar = false;
                     break;
-
                 default:
-                    System.out.println("Opção invalida!");
+                    System.out.println("Opção inválida!");
                     break;
             }
         } while (continuar);
@@ -164,8 +163,7 @@ public class App {
 
     private void cadastrarMusicaManualmente() {
         System.out.println("\n ----- Cadastrar Nova Música -----");
-
-        String titulo = leitor.lerTexto("Titulo:");
+        String titulo = leitor.lerTexto("Título:");
         String artista = leitor.lerTexto("Artista:");
         String album = leitor.lerTexto("Álbum:");
         int duracaoSegundos = leitor.lerInteiro("Duração em segundos:");
@@ -174,21 +172,16 @@ public class App {
             Musica novaMusica = new Musica(titulo, artista, album, duracaoSegundos);
             boolean sucesso = plataforma.cadastrarConteudo(novaMusica);
             if (sucesso) {
-                System.out.println("Música cadastrada com sucesso. Id: " + novaMusica.getId());
-            } else {
-                System.out.println("Falha ao cadastrar a nova música.");
+                System.out.println("Música cadastrada com sucesso. ID: " + novaMusica.getId());
             }
         } catch (IllegalArgumentException e) {
             System.out.println("Erro ao cadastrar música: " + e.getMessage());
-        } finally {
-            System.out.println("Cadastro de música finalizado!");
         }
     }
 
     private void cadastrarPodcastManualmente() {
         System.out.println("\n ----- Cadastrar Novo Podcast -----");
-
-        String titulo = leitor.lerTexto("Titulo:");
+        String titulo = leitor.lerTexto("Título:");
         String apresentador = leitor.lerTexto("Apresentador:");
         int numeroEpisodio = leitor.lerInteiro("Número do Episódio:");
         int duracaoSegundos = leitor.lerInteiro("Duração em segundos:");
@@ -197,20 +190,15 @@ public class App {
             Podcast novoPodcast = new Podcast(titulo, apresentador, numeroEpisodio, duracaoSegundos);
             boolean sucesso = plataforma.cadastrarConteudo(novoPodcast);
             if (sucesso) {
-                System.out.println("Podcast cadastrado com sucesso. Id: " + novoPodcast.getId());
-            } else {
-                System.out.println("Falha ao cadastrar o novo podcast.");
+                System.out.println("Podcast cadastrado com sucesso. ID: " + novoPodcast.getId());
             }
         } catch (IllegalArgumentException e) {
             System.out.println("Erro ao cadastrar podcast: " + e.getMessage());
-        } finally {
-            System.out.println("Cadastro de podcast finalizado!");
         }
     }
 
     private void cadastrarUsuario() {
         System.out.println("\n ----- Cadastrar Novo Usuário -----");
-
         String nome = leitor.lerTexto("Nome:");
         String email = leitor.lerTexto("E-mail:");
 
@@ -219,23 +207,33 @@ public class App {
             boolean sucesso = plataforma.cadastrarUsuario(novoUsuario);
 
             if (sucesso) {
-                System.out.println(
-                        "Usuário cadastrado com sucesso. Id: " + novoUsuario.getId() + " (Plano inicial: Gratuito)");
-            } else {
-                System.out.println("Falha ao cadastrar o novo usuário.");
+                System.out.println("Usuário cadastrado com sucesso. ID: " + novoUsuario.getId() + " (Plano inicial: Gratuito)");
             }
         } catch (IllegalArgumentException e) {
             System.out.println("Erro ao cadastrar usuário: " + e.getMessage());
-        } finally {
-            System.out.println("Cadastro de usuário finalizado!");
+        }
+    }
+
+    private void cadastrarAnuncioManualmente() {
+        System.out.println("\n ----- Cadastrar Novo Anúncio -----");
+        String anunciante = leitor.lerTexto("Anunciante:");
+        String titulo = leitor.lerTexto("Título do Anúncio:");
+        int duracaoSegundos = leitor.lerInteiro("Duração em segundos:");
+        double valorMil = leitor.lerDouble("Valor por mil impressões (R$):");
+
+        try {
+            Anuncio novoAnuncio = new Anuncio(anunciante, titulo, duracaoSegundos, valorMil);
+            plataforma.cadastrarAnuncio(novoAnuncio);
+            System.out.println("Anúncio cadastrado com sucesso!");
+        } catch (IllegalArgumentException e) {
+            System.out.println("Erro ao cadastrar anúncio: " + e.getMessage());
         }
     }
 
     private void criarPlaylist() {
         System.out.println("\n ----- Criar Nova Playlist -----");
-
         String nomePlaylist = leitor.lerTexto("Digite o nome da playlist:");
-        int idUsuario = leitor.lerInteiro("Digite o id do usuário criador da playlist:");
+        int idUsuario = leitor.lerInteiro("Digite o ID do usuário criador da playlist:");
 
         try {
             Usuario donoEncontrado = plataforma.buscarUsuario(idUsuario);
@@ -257,42 +255,64 @@ public class App {
             return;
         }
 
-        System.out.println("\n ----- Adicionar Conteudo na Playlist -----");
+        System.out.println("\n ----- Adicionar Conteúdo na Playlist -----");
 
         while (true) {
-            int id = leitor.lerInteiro("Digite o id do conteudo para adicionar (ou 0 para sair):");
+            int id = leitor.lerInteiro("Digite o ID do conteúdo para adicionar (ou 0 para sair):");
 
             if (id == 0) {
-                System.out.println("Parando de adicionar conteudos.");
+                System.out.println("Parando de adicionar conteúdos.");
                 break;
             }
 
             Conteudo conteudoEncontrado = plataforma.buscarConteudo(id);
 
             if (conteudoEncontrado != null) {
-                Conteudo conteudoEncontrada = (Conteudo) conteudoEncontrado;
-                boolean sucesso = playlist.adicionarConteudo(conteudoEncontrada);
+                boolean sucesso = playlist.adicionarConteudo(conteudoEncontrado);
 
                 if (sucesso) {
-                    System.out.println("Conteúdo '" + conteudoEncontrada.getTitulo() + "' adicionada à playlist '"
+                    System.out.println("Conteúdo '" + conteudoEncontrado.getTitulo() + "' adicionado à playlist '"
                             + playlist.getNome() + "'!");
-                    System.out.println("Total de músicas na playlist agora: " + playlist.getQuantidadeConteudo());
+                    System.out.println("Total de itens na playlist agora: " + playlist.getQuantidadeConteudo());
                     System.out.println("Duração total da playlist: " + playlist.getDuracaoTotalSegundos() + "s\n");
                 }
             } else {
-                System.out.println("Nenhum conteúdo encontrado com o id: " + id);
+                System.out.println("Nenhum conteúdo encontrado com o ID: " + id);
             }
         }
     }
 
+    private void tocarPlaylistParaUsuario() {
+        System.out.println("\n ----- Tocar Playlist para Usuário -----");
+        if (this.playlist == null) {
+            System.out.println("Nenhuma playlist foi criada ainda. Crie uma primeiro (Opção 4).");
+            return;
+        }
+
+        int idUsuario = leitor.lerInteiro("Digite o ID do usuário ouvinte:");
+        Usuario ouvinte = plataforma.buscarUsuario(idUsuario);
+        if (ouvinte == null) {
+            System.out.println("Usuário não encontrado.");
+            return;
+        }
+
+        System.out.println("\n--- [Demonstração] Receita mensal ANTES de tocar a playlist ---");
+        exibirReceitaMensalPlataforma();
+
+        System.out.println("\nReproduzindo playlist para " + ouvinte.getNome() + " (Plano: " + ouvinte.getPlano().getNome() + ")...");
+        plataforma.tocarPlaylist(ouvinte, this.playlist);
+
+        System.out.println("\n--- [Demonstração] Receita mensal DEPOIS de tocar a playlist ---");
+        exibirReceitaMensalPlataforma();
+    }
+
     private void buscarConteudoId() {
         System.out.println("\n ----- Buscar Conteúdo por ID -----");
-
-        int id = leitor.lerInteiro("Digite o id:");
+        int id = leitor.lerInteiro("Digite o ID:");
         Conteudo conteudo = plataforma.buscarConteudo(id);
 
         if (conteudo == null) {
-            System.out.println("Não foi possível encontrar nenhum conteúdo com o id: " + id);
+            System.out.println("Não foi possível encontrar nenhum conteúdo com o ID: " + id);
         } else {
             System.out.println(conteudo.toString());
             System.out.println("Duração formatada: " + conteudo.getDuracaoFormatada());
@@ -312,12 +332,11 @@ public class App {
 
     private void buscarConteudoPorTitulo() {
         System.out.println("\n ----- Buscar Conteúdo pelo Título -----");
-
         String titulo = leitor.lerTexto("Digite o título:");
         Conteudo conteudo = plataforma.buscarConteudo(titulo);
 
         if (conteudo == null) {
-            System.out.println("Não foi possível encontrar nenhum conteúdo com o titulo: " + titulo);
+            System.out.println("Não foi possível encontrar nenhum conteúdo com o título: " + titulo);
         } else {
             System.out.println(conteudo.toString());
             System.out.println("Duração formatada: " + conteudo.getDuracaoFormatada());
@@ -342,15 +361,13 @@ public class App {
         }
 
         System.out.println("\n ----- Remover Conteúdo da Playlist -----");
-        int posicao = leitor.lerInteiro("Digite o índice do conteúdo a ser removida (0 a 99):");
+        int posicao = leitor.lerInteiro("Digite o índice do conteúdo a ser removido (0 a 99):");
 
         try {
             playlist.removerConteudoNaPosicao(posicao);
-            System.out.println("Conteúdo removida da playlist com sucesso!");
+            System.out.println("Conteúdo removido da playlist com sucesso!");
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Erro de posição: " + e.getMessage());
-        } catch (Exception e) {
-            System.out.println("Ocorreu um erro inesperado ao remover: " + e.getMessage());
         }
     }
 
@@ -368,28 +385,23 @@ public class App {
         int indice = leitor.lerInteiro("\nDigite o índice do conteúdo na playlist para pesquisar (0 a 99):");
         try {
             Conteudo m = playlist.getConteudoNaPosicao(indice);
-
             System.out.println("Índice na playlist: " + indice);
             System.out.println(m.toString());
             System.out.println("Reproduções: " + m.getReproducoes());
-
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Erro ao acessar posição do conteúdo na playlist: " + e.getMessage());
-        } catch (Exception e) {
-            System.out.println("Erro inesperado ao exibir o conteúdo da playlist: " + e.getMessage());
         }
     }
 
     private void reproduzirConteudo() {
         System.out.println("\n ----- Reproduzir Conteúdo -----");
-
-        int id = leitor.lerInteiro("Digite o id do conteúdo:");
+        int id = leitor.lerInteiro("Digite o ID do conteúdo:");
         Conteudo conteudoEncontrado = plataforma.buscarConteudo(id);
 
         if (conteudoEncontrado != null) {
-            conteudoEncontrado.reproduzir(); // Incrementa e imprime automaticamente via método final[cite: 6]
+            conteudoEncontrado.reproduzir();
         } else {
-            System.out.println("Nenhum conteúdo encontrado com o id: " + id);
+            System.out.println("Nenhum conteúdo encontrado com o ID: " + id);
         }
     }
 
@@ -401,8 +413,7 @@ public class App {
             for (int i = 1; i <= plataforma.getTotalConteudos(); i++) {
                 Conteudo c = plataforma.buscarConteudo(i);
                 if (c != null) {
-                    System.out.println(
-                            "ID: " + c.getId() + " | " + c.toString() + " | Reproduções: " + c.getReproducoes());
+                    System.out.println("ID: " + c.getId() + " | " + c.toString() + " | Reproduções: " + c.getReproducoes());
                 }
             }
         }
@@ -411,8 +422,7 @@ public class App {
     private Usuario pesquisarUsuario(String mensagemPersonalizada) {
         int idUsuario = leitor.lerInteiro(mensagemPersonalizada);
         try {
-            Usuario usuario = plataforma.buscarUsuario(idUsuario);
-            return usuario;
+            return plataforma.buscarUsuario(idUsuario);
         } catch (IllegalStateException e) {
             System.out.println("Erro ao encontrar usuário: " + e.getMessage());
         }
@@ -422,52 +432,40 @@ public class App {
     private void seguirOutroUsuario() {
         System.out.println("\n ----- Seguir Usuário -----");
         Usuario usuarioConta = pesquisarUsuario("Digite o ID do usuário que vai SEGUIR:");
-        if (usuarioConta == null) {
-            System.out.println("Não foi possível encontrar o usuário principal.");
-        } else {
-            Usuario outroUsuario = pesquisarUsuario("Digite o ID do usuário que VAI SER SEGUIDO:");
-            if (outroUsuario == null) {
-                System.out.println("Não foi possível encontrar o usuário a ser seguido.");
-                return;
-            }
+        if (usuarioConta == null) return;
 
-            try {
-                usuarioConta.seguir(outroUsuario);
-                System.out.println("Usuário seguido com sucesso!");
-            } catch (IllegalArgumentException e) {
-                System.out.println("Erro: " + e.getMessage());
-            }
+        Usuario outroUsuario = pesquisarUsuario("Digite o ID do usuário que VAI SER SEGUIDO:");
+        if (outroUsuario == null) return;
+
+        try {
+            usuarioConta.seguir(outroUsuario);
+            System.out.println("Usuário seguido com sucesso!");
+        } catch (IllegalArgumentException e) {
+            System.out.println("Erro: " + e.getMessage());
         }
     }
 
     private void deixarDeSeguirOutroUsuario() {
         System.out.println("\n ----- Deixar de Seguir Usuário -----");
         Usuario usuarioConta = pesquisarUsuario("Digite o ID do usuário principal:");
-        if (usuarioConta == null) {
-            System.out.println("Não foi possível encontrar o usuário principal.");
-        } else {
-            Usuario outroUsuario = pesquisarUsuario("Digite o ID do usuário que VAI DEIXAR DE SER SEGUIDO:");
-            if (outroUsuario == null) {
-                System.out.println("Não foi possível encontrar o usuário alvo.");
-                return;
-            }
+        if (usuarioConta == null) return;
 
-            try {
-                usuarioConta.deixarDeSeguir(outroUsuario);
-                System.out.println("Você deixou de seguir este usuário com sucesso!");
-            } catch (IllegalArgumentException e) {
-                System.out.println("Erro: " + e.getMessage());
-            }
+        Usuario outroUsuario = pesquisarUsuario("Digite o ID do usuário que VAI DEIXAR DE SER SEGUIDO:");
+        if (outroUsuario == null) return;
+
+        try {
+            usuarioConta.deixarDeSeguir(outroUsuario);
+            System.out.println("Deixou de seguir este usuário com sucesso!");
+        } catch (IllegalArgumentException e) {
+            System.out.println("Erro: " + e.getMessage());
         }
     }
 
     private void quantSeguindoUsuarios() {
-        System.out.println("\n ----- Consultar Quem Está Segurando -----");
+        System.out.println("\n ----- Consultar Quantidade de Seguidos -----");
         Usuario usuarioConta = pesquisarUsuario("Digite o ID do usuário que deseja consultar:");
-        if (usuarioConta == null) {
-            System.out.println("Não foi possível encontrar o usuário.");
-        } else {
-            System.out.println("A quantidade de usuários sendo seguidos por " + usuarioConta.getNome() + " é: "
+        if (usuarioConta != null) {
+            System.out.println("A quantidade de usuários seguidos por " + usuarioConta.getNome() + " é: "
                     + usuarioConta.getQuantidadeSeguindo());
         }
     }
@@ -475,10 +473,7 @@ public class App {
     private void alterarPlanoUsuario() {
         System.out.println("\n ----- Alterar Plano do Usuário -----");
         Usuario usuario = pesquisarUsuario("Digite o ID do usuário:");
-        if (usuario == null) {
-            System.out.println("Usuário não encontrado.");
-            return;
-        }
+        if (usuario == null) return;
 
         System.out.println("Escolha o novo plano:");
         System.out.println("1 - Plano Gratuito");
@@ -512,24 +507,19 @@ public class App {
     private void exibirResumoPlanoUsuario() {
         System.out.println("\n ----- Resumo do Plano do Usuário -----");
         Usuario usuario = pesquisarUsuario("Digite o ID do usuário:");
-        if (usuario == null) {
-            System.out.println("Usuário não encontrado.");
-            return;
-        }
+        if (usuario == null) return;
 
         System.out.println("Usuário: " + usuario.getNome());
         System.out.println("Plano Atual -> " + usuario.getPlano().resumo());
-        // operador ternário - condicao ? verdadeiro : falso
         System.out.println("Possui Anúncios - " + (usuario.getPlano().temAnuncios() ? "Sim" : "Não"));
     }
 
     private void exibirReceitaMensalPlataforma() {
-        System.out.println(
-                "A receita mensal da plataforma é: R$" + String.format("%.2f", plataforma.calcularReceitaMensal()));
+        System.out.printf("A receita mensal da plataforma é: R$ %.2f\n", plataforma.calcularReceitaMensal());
     }
 
     private void listarPodcastDoApresentador() {
-        String apresentador = leitor.lerTexto("Digite o nome do apresentador que deseja mostrar os podcasts: ");
+        String apresentador = leitor.lerTexto("Digite o nome do apresentador que deseja procurar: ");
         plataforma.listarEpisodiosDe(apresentador);
     }
 
